@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <%= link_to "MyApp", "/", class: "navbar-brand" %>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav">
+      <li class="nav-item <%= "active" if controller.is_a?(HomeController) %>">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+      </li>
+    </ul>
+  </div>
+
+  <% if auth.logged_in? %>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%= link_to "Log out", auth.logout_path, method: "post", class: "btn btn-light" %>
+      </li>
+    </ul>
+  <% else %>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%= link_to "Sign in", auth.login_path, class: "btn btn-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Sign up", auth.register_path, class: "btn btn-success" %>
+      </li>
+    </ul>
+  <% end %>
+</nav>

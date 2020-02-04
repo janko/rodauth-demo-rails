@@ -10,10 +10,21 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application', media: 'all' %>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" id="container">
+      <%= render partial: "navigation" %>
+
+      <% if flash[:error] %>
+        <div class="alert alert-danger"><%= flash[:error] %></div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="alert alert-success"><%= flash[:notice] %></div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>

@@ -1,0 +1,11 @@
+<%= form_tag auth.login_path, action: "post" do %>
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params[:email], class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password %>
+    <%= password_field_tag :password, params[:password], class: "form-control" %>
+  </div>
+  <%= submit_tag "Sign in", class: "btn btn-primary" %> <%= link_to "Create account", auth.register_path, class: "btn btn-link" %>
+<% end %>

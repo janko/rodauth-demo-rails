@@ -1,0 +1,24 @@
+<%= form_tag auth.register_path, action: "post" do %>
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params[:email], class: "form-control" %>
+    <small class="form-text text-danger"><%= auth.field_error(:email) %></small>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= label_tag :password %>
+        <%= password_field_tag :password, params[:password], class: "form-control" %>
+        <small class="form-text text-danger"><%= auth.field_error(:password) %></small>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= label_tag :confirm_password %>
+        <%= password_field_tag :confirm_password, params[:confirm_password], class: "form-control" %>
+        <small class="form-text text-danger"><%= auth.field_error(:confirm_password) %></small>
+      </div>
+    </div>
+  </div>
+  <%= submit_tag "Create account", class: "btn btn-primary" %>
+<% end %>
