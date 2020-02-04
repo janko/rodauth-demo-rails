@@ -1,24 +1,38 @@
-# README
+# Rodauth Rails Demo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Example app that demonstrates how to integrate [Rodauth] into Rails. All
+important Rails features work as expected:
 
-Things you may want to cover:
+* views are rendered with ActionController
+* emails are sent with ActionMailer
+* CSRF token is verified with ActionController
+* flash messages are saved into ActionController
 
-* Ruby version
+## Features
 
-* System dependencies
+The following authentication features are implemented at the moment:
 
-* Configuration
+* Login
+* Create Account
+* Verify Account
+* Reset Password
+* Logout
 
-* Database creation
+## How it works
 
-* Database initialization
+We create an [initializer] which defines an authentication middelware and adds
+it to the middleware stack. The middleware internally calls the Rodauth
+application that perfoms the authentication. This trick allows the Rodauth
+application to remain reloadable.
 
-* How to run the test suite
+The [Rodauth application] defines all configuration, and exposes the Rodauth
+object to Rails controllers via the `env` hash. A proxy object is used to keep
+the rest of our application decoupled from Rodauth.
 
-* Services (job queues, cache servers, search engines, etc.)
+Even though in Rodauth routes we don't yet reach our Rails router or our
+controllers, we still manage to use our controllers for template rendering. We
+also use an ActionMailer mailer for delivering emails.
 
-* Deployment instructions
-
-* ...
+[Rodauth]: https://github.com/jeremyevans/rodauth/
+[initializer]: /config/initializers/authentication.rb
+[Rodauth application]: /lib/my_app/authentication.rb
