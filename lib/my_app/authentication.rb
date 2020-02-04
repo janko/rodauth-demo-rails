@@ -8,7 +8,7 @@ module MyApp
       plugin :render, views: "app/views", layout: false
       plugin :pass
 
-      plugin :rodauth, csrf: :route_csrf, flash: false do
+      plugin :rodauth, csrf: false, flash: false do
         enable :login, :create_account, :verify_account, :reset_password, :logout
 
         # flow changes
@@ -55,6 +55,7 @@ module MyApp
             renderer.render template: "authentication/#{template}"
           end
 
+          # send emails using our Rails mailer
           def rails_send_email(template, **params)
             AuthenticationMailer.public_send(template, **params).deliver_now
           end
@@ -62,6 +63,8 @@ module MyApp
       end
 
       route do |r|
+        verify_authenticity_token!
+
         env["auth"] = Object.new(rodauth)
 
         r.rodauth
@@ -76,6 +79,15 @@ module MyApp
       # store flash messages in Rails' flash object instead of Roda's
       def flash
         env[ActionDispatch::Flash::KEY] ||= ActionDispatch::Flash::FlashHash.from_session_value(session["flash"])
+      end
+
+      private
+
+      # verify the CRSF token from our Rails forms
+      def verify_authenticity_token!
+        controller = ApplicationController.new
+        controller.set_request! ActionDispatch::Request.new(env)
+        controller.send(:verify_authenticity_token)
       end
     end
 
