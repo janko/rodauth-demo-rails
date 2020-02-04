@@ -1,0 +1,12 @@
+<%= form_tag auth.verify_account_resend_path, method: "post" do %>
+  <% if auth.param(:email) %>
+    <%= hidden_field_tag :email, auth.param(:email) %>
+  <% else %>
+    <div class="form-group">
+      <%= label_tag :email %>
+      <%= text_field_tag :email, nil, class: "form-control" %>
+    </div>
+  <% end %>
+  <%= submit_tag "Send email verification again", class: "btn btn-primary" %>
+  <%= link_to "Back", root_path, class: "btn btn-default" %>
+<% end %>

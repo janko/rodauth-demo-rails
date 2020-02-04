@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 2020_02_04_150656) do
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status_id = ANY (ARRAY[1, 2]))"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_posts_on_account_id"
+  end
+
   add_foreign_key "account_activity_times", "accounts", column: "id"
   add_foreign_key "account_email_auth_keys", "accounts", column: "id"
   add_foreign_key "account_lockouts", "accounts", column: "id"

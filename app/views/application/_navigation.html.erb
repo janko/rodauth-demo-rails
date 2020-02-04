@@ -10,6 +10,9 @@
       <li class="nav-item <%= "active" if controller.is_a?(HomeController) %>">
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
+      <li class="nav-item <%= "active" if controller.is_a?(PostsController) %>">
+        <%= link_to "Posts", posts_path, class: "nav-link" %>
+      </li>
     </ul>
   </div>
 

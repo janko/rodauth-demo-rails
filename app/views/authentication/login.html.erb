@@ -7,5 +7,5 @@
     <%= label_tag :password %>
     <%= password_field_tag :password, params[:password], class: "form-control" %>
   </div>
-  <%= submit_tag "Sign in", class: "btn btn-primary" %> <%= link_to "Create account", auth.register_path, class: "btn btn-link" %>
+  <%= submit_tag "Sign in", class: "btn btn-primary" %> <%= link_to "Resend email verification", auth.verify_account_resend_path, class: "btn btn-default" %>
 <% end %>
