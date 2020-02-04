@@ -9,7 +9,7 @@ module MyApp
       plugin :pass
 
       plugin :rodauth, csrf: :route_csrf, flash: false do
-        enable :login, :create_account, :verify_account, :logout
+        enable :login, :create_account, :verify_account, :reset_password, :logout
 
         # flow changes
         account_password_hash_column :password_hash
@@ -17,10 +17,12 @@ module MyApp
         verify_account_skip_resend_email_within 1
 
         # views
-        login_view                 { rails_render("login")                 }
-        create_account_view        { rails_render("register")              }
-        verify_account_view        { rails_render("verify_account")        }
-        resend_verify_account_view { rails_render("verify_account_resend") }
+        login_view                  { rails_render("login")                  }
+        create_account_view         { rails_render("register")               }
+        verify_account_view         { rails_render("verify_account")         }
+        resend_verify_account_view  { rails_render("verify_account_resend")  }
+        reset_password_request_view { rails_render("reset_password_request") }
+        reset_password_view         { rails_render("reset_password")         }
 
         # route changes
         create_account_route "register"
@@ -36,10 +38,14 @@ module MyApp
 
         # emails
         send_verify_account_email do
-          AuthenticationMailer.verify_account(
+          rails_send_email :verify_account,
             email: account.fetch(:email),
-            link:  verify_account_email_link,
-          ).deliver_now
+            link:  verify_account_email_link
+        end
+        send_reset_password_email do
+          rails_send_email :reset_password,
+            email: account.fetch(:email),
+            link:  reset_password_email_link
         end
 
         auth_class_eval do
@@ -47,6 +53,10 @@ module MyApp
           def rails_render(template)
             renderer = ActionController::Renderer.new(AuthenticationController, scope.env, {})
             renderer.render template: "authentication/#{template}"
+          end
+
+          def rails_send_email(template, **params)
+            AuthenticationMailer.public_send(template, **params).deliver_now
           end
         end
       end
@@ -88,14 +98,26 @@ module MyApp
         rodauth.field_error(name.to_s)
       end
 
-      def login_path;                 "/#{rodauth.login_route}";                 end
-      def register_path;              "/#{rodauth.create_account_route}";        end
-      def logout_path;                "/#{rodauth.logout_route}";                end
-      def verify_account_path;        "/#{rodauth.verify_account_route}";        end
-      def verify_account_resend_path; "/#{rodauth.verify_account_resend_route}"; end
+      def register_path
+        create_account_path
+      end
 
       def logged_in?
         rodauth.logged_in?
+      end
+
+      private
+
+      # Catches all *_path methods and calls corresponding *_route methods
+      def method_missing(name, *args, **options, &block)
+        if name =~ /_path$/
+          route_method = name.to_s.sub(/_path$/, "_route")
+          route        = rodauth.public_send(route_method)
+
+          "/#{route}"
+        else
+          super
+        end
       end
     end
   end

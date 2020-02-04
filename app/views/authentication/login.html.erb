@@ -2,10 +2,12 @@
   <div class="form-group">
     <%= label_tag :email %>
     <%= text_field_tag :email, params[:email], class: "form-control" %>
+    <small class="form-text text-danger"><%= auth.field_error(:email) %></small>
   </div>
   <div class="form-group">
     <%= label_tag :password %>
     <%= password_field_tag :password, params[:password], class: "form-control" %>
+    <small class="form-text text-danger"><%= auth.field_error(:password) %></small>
   </div>
-  <%= submit_tag "Sign in", class: "btn btn-primary" %> <%= link_to "Resend email verification", auth.verify_account_resend_path, class: "btn btn-default" %>
+  <%= submit_tag "Sign in", class: "btn btn-primary" %> <%= link_to "Reset password", auth.reset_password_request_path, class: "btn btn-default" %>
 <% end %>
