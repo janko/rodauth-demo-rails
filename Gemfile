@@ -5,5 +5,7 @@ gem 'pg', '~> 1.0'
 gem 'puma', '~> 4.1'
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '~> 4.0'
 end
+
+gem 'bootstrap', '~> 4.4'
