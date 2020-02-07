@@ -16,19 +16,19 @@
     </ul>
   </div>
 
-  <% if auth.logged_in? %>
+  <% if rodauth.logged_in? %>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <%= link_to "Log out", auth.logout_path, method: "post", class: "btn btn-light" %>
+        <%= link_to "Log out", rodauth.logout_path, method: "post", class: "btn btn-light" %>
       </li>
     </ul>
   <% else %>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <%= link_to "Sign in", auth.login_path, class: "btn btn-link" %>
+        <%= link_to "Sign in", rodauth.login_path, class: "btn btn-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Sign up", auth.register_path, class: "btn btn-success" %>
+        <%= link_to "Sign up", rodauth.create_account_path, class: "btn btn-success" %>
       </li>
     </ul>
   <% end %>
