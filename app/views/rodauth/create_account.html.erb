@@ -1,0 +1,11 @@
+<%= form_tag rodauth.create_account_path, method: :post do %>
+  <div class="form-group">
+    <%= label_tag "name", "Name" %>
+    <%= render "field", name: :name, id: "name", required: true %>
+  </div>
+  <%= render "login_field" %>
+  <%= render "login_confirm_field" if rodauth.require_login_confirmation? %>
+  <%= render "password_field" if rodauth.create_account_set_password? %>
+  <%= render "password_confirm_field" if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
+  <%= render "submit", value: "Create Account" %>
+<% end %>

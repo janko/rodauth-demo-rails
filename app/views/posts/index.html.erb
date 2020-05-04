@@ -1,11 +1,11 @@
 <h1>Posts</h1>
 
-<table class="table table-borderless">
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
       <th>Body</th>
-      <th></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -15,7 +15,7 @@
         <td><%= post.title %></td>
         <td><%= post.body %></td>
         <td>
-          <%= link_to 'Show', post, class: "btn btn-light" %>
+          <%= link_to 'Show', post, class: "btn btn-secondary" %>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning" %>
           <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
         </td>
@@ -23,5 +23,7 @@
     <% end %>
   </tbody>
 </table>
+
+<br>
 
 <%= link_to 'New Post', new_post_path, class: "btn btn-success" %>

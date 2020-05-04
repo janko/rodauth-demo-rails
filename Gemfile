@@ -1,11 +1,12 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
+ruby "2.6.5"
 
-gem 'rails', '~> 6.0'
-gem 'pg', '~> 1.0'
-gem 'puma', '~> 4.3'
+gem "rails", "~> 6.0"
+gem "pg", "~> 1.2"
+gem "puma", "~> 4.1"
+gem "webpacker", "~> 5.0"
 
-gem 'rodauth', '~> 1.22'
-gem 'bcrypt'
-gem 'tilt' # for default views
-
-gem 'bootstrap', '~> 4.4'
+gem "rodauth", github: "jeremyevans/rodauth"
+gem "rodauth-rails", github: "janko/rodauth-rails"
+gem "rotp", require: false
+gem "rqrcode", require: false

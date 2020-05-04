@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = current_account.posts.new
   end
 
   # GET /posts/1/edit
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = current_account.posts.build(post_params)
+    @post = current_account.posts.new(post_params)
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
@@ -46,14 +46,13 @@ class PostsController < ApplicationController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @post = current_account.posts.find(params[:id])
+    end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = current_account.posts.find(params[:id])
-  end
-
-  # Only allow a trusted parameter "white list" through.
-  def post_params
-    params.require(:post).permit(:title, :body)
-  end
+    # Only allow a trusted parameter "white list" through.
+    def post_params
+      params.require(:post).permit(:title, :body)
+    end
 end

@@ -2,15 +2,14 @@
   <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title, class: "form-control" %>
-    <small class="form-text text-danger"><%= post.errors[:title].first %></small>
   </div>
 
   <div class="form-group">
     <%= form.label :body %>
     <%= form.text_area :body, class: "form-control" %>
-    <small class="form-text text-danger"><%= post.errors[:body].first %></small>
   </div>
 
-  <%= form.submit class: "btn btn-primary" %>
-  <%= link_to "Back", posts_path, class: "btn btn-default" %>
+  <div class="form-group">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
 <% end %>
