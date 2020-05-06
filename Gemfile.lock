@@ -1,22 +1,3 @@
-GIT
-  remote: https://github.com/janko/rodauth-rails.git
-  revision: e6cf8332bb50e63249fa885e81e3ae7cd06808ed
-  specs:
-    rodauth-rails (0.1.0)
-      bcrypt
-      railties (>= 4.2, < 7)
-      rodauth (>= 1.23, < 3)
-      sequel-activerecord_connection (~> 0.2)
-      tilt
-
-GIT
-  remote: https://github.com/jeremyevans/rodauth.git
-  revision: 10326477645956742ef6ae6225c2532e48d0deda
-  specs:
-    rodauth (2.0.0)
-      roda (>= 2.6.0)
-      sequel (>= 4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -140,6 +121,15 @@ GEM
     rake (13.0.1)
     roda (3.31.0)
       rack
+    rodauth (2.0.0)
+      roda (>= 2.6.0)
+      sequel (>= 4)
+    rodauth-rails (0.1.0)
+      bcrypt
+      railties (>= 4.2, < 7)
+      rodauth (>= 1.23, < 3)
+      sequel-activerecord_connection (~> 0.2)
+      tilt
     rotp (5.1.0)
       addressable (~> 2.5)
     rqrcode (1.1.2)
@@ -180,8 +170,8 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 4.1)
   rails (~> 6.0)
-  rodauth!
-  rodauth-rails!
+  rodauth (~> 2.0)
+  rodauth-rails (~> 0.1)
   rotp
   rqrcode
   webpacker (~> 5.0)
