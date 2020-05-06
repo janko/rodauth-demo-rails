@@ -54,7 +54,6 @@ class RodauthApp < Rodauth::Rails::App
       RodauthMailer.email_auth(email_to, email_auth_email_link).deliver_now
     end
     send_unlock_account_email do
-      @unlock_account_key_value = get_unlock_account_key
       RodauthMailer.unlock_account(email_to, unlock_account_email_link).deliver_now
     end
 
