@@ -124,7 +124,7 @@ GEM
     rodauth (2.0.0)
       roda (>= 2.6.0)
       sequel (>= 4)
-    rodauth-rails (0.1.1)
+    rodauth-rails (0.1.2)
       bcrypt
       railties (>= 4.2, < 7)
       rodauth (>= 1.23, < 3)
