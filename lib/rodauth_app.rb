@@ -70,9 +70,6 @@ class RodauthApp < Rodauth::Rails::App
     # Extend user's remember period when remembered via a cookie
     extend_remember_deadline? true
 
-    # Consider remembered users to be multifactor-authenticated (if using MFA).
-    after_load_memory { two_factor_update_session("totp") if two_factor_authentication_setup? }
-
     # Redirect to password confirmation dialog before these routes
     before_change_password_route    { require_password_authentication }
     before_change_login_route       { require_password_authentication }
