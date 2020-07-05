@@ -18,8 +18,8 @@ class RodauthApp < Rodauth::Rails::App
     account_open_status_value "verified"
     account_closed_status_value "closed"
 
-    # Set password when creating account instead of when verifying.
-    verify_account_set_password? false
+    # Ask for password only when verifying the account.
+    verify_account_set_password? true
 
     # Amount of invalid logins allowed before the account is locked.
     max_invalid_logins 3
