@@ -25,7 +25,7 @@
           <%= link_to "Change email", rodauth.change_login_path, class: "dropdown-item" %>
           <%= link_to "Remember settings", rodauth.remember_path, class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
-          <% if rodauth.two_factor_authentication_setup? %>
+          <% if rodauth.uses_two_factor_authentication? %>
             <% unless rodauth.two_factor_authenticated? %>
               <%= link_to "Authenticate MFA", rodauth.two_factor_auth_path, class: "dropdown-item" %>
             <% end %>
