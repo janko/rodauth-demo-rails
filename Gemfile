@@ -8,3 +8,8 @@ gem "webpacker", "~> 5.0"
 gem "rodauth-rails", "~> 0.4"
 gem "rotp", require: false
 gem "rqrcode", require: false
+
+group :test do
+  gem "capybara", "~> 3.33"
+  gem "selenium-webdriver" # TODO: remove in Rails 6.1+
+end

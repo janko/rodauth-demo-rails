@@ -17,6 +17,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   def login(login: "user@example.com", password: "secret")
     post "/create-account", params: {
+      "name"             => "Janko",
       "login"            => login,
       "password"         => password,
       "password-confirm" => password,

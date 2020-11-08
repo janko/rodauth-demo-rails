@@ -29,10 +29,7 @@ class RodauthApp < Rodauth::Rails::App
     two_factor_auth_return_to_requested_location? true
 
     # Amount of time between asking for password for sensitive actions.
-    password_grace_period 60*60
-
-    # Autologin the user after they have reset their password.
-    reset_password_autologin? true
+    password_grace_period 1.hour
 
     # Delete the account record when the user has closed their account.
     delete_account_on_close? true
@@ -67,9 +64,7 @@ class RodauthApp < Rodauth::Rails::App
 
     # Print SMS codes to console in development
     sms_send do |phone_number, message|
-      puts
-      puts "#{phone_number} =====> #{message}"
-      puts
+      Rails.logger.info "\n#{phone_number} =====> #{message}\n"
     end
 
     # Remember all logged in users.

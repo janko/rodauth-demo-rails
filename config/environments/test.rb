@@ -3,6 +3,8 @@
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
 
+require "active_support/core_ext/numeric/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -42,4 +44,7 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  # Process ActiveJob jobs inline.
+  config.active_job.queue_adapter = :inline
 end
