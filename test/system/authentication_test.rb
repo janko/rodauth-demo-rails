@@ -64,8 +64,8 @@ class AuthenticationTest < SystemTestCase
   test "logout" do
     create_account
 
-    click_on "Sign out"
-    click_on "Logout"
+    dropdown_click "Sign out"
+    click_on "Logout" if Capybara.current_driver == :rack_test
 
     assert_match "You have been logged out", page.text
     assert_equal "/", page.current_path
@@ -98,7 +98,7 @@ class AuthenticationTest < SystemTestCase
   test "change password" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Change password"
+    dropdown_click "Change password"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -117,7 +117,7 @@ class AuthenticationTest < SystemTestCase
   test "change email" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Change email"
+    dropdown_click "Change email"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -165,7 +165,7 @@ class AuthenticationTest < SystemTestCase
   test "close account" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Close account"
+    dropdown_click "Close account"
     fill_in "Password", with: "secret"
     click_on "Close Account"
 
@@ -176,7 +176,7 @@ class AuthenticationTest < SystemTestCase
   test "OTP" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Setup MFA"
+    dropdown_click "Setup MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -190,7 +190,7 @@ class AuthenticationTest < SystemTestCase
     login(email: "janko@hey.com", password: "secret")
 
     DB[:account_otp_keys].update(last_use: 1.minute.ago)
-    click_on "Authenticate MFA"
+    dropdown_click "Authenticate MFA"
     fill_in "Authentication Code", with: totp.now
     click_on "Authenticate Using TOTP"
 
@@ -200,7 +200,7 @@ class AuthenticationTest < SystemTestCase
   test "SMS codes" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Setup MFA"
+    dropdown_click "Setup MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -208,7 +208,7 @@ class AuthenticationTest < SystemTestCase
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"
 
-    click_on "Manage MFA"
+    dropdown_click "Manage MFA"
     click_on "Setup Backup SMS Authentication"
     fill_in "Phone Number", with: "0123456789"
     click_on "Setup SMS Backup Number"
@@ -220,7 +220,7 @@ class AuthenticationTest < SystemTestCase
     logout
     login(email: "janko@hey.com", password: "secret")
 
-    click_on "Authenticate MFA"
+    dropdown_click "Authenticate MFA"
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
     fill_in "SMS Code", with: DB[:account_sms_codes].reverse(:code_issued_at).get(:code)
@@ -232,7 +232,7 @@ class AuthenticationTest < SystemTestCase
   test "recovery codes" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    click_on "Setup MFA"
+    dropdown_click "Setup MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -240,7 +240,7 @@ class AuthenticationTest < SystemTestCase
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"
 
-    click_on "Manage MFA"
+    dropdown_click "Manage MFA"
     click_on "View Authentication Recovery Codes"
     click_on "View Authentication Recovery Codes"
     click_on "Add Authentication Recovery Codes"
@@ -250,7 +250,7 @@ class AuthenticationTest < SystemTestCase
     logout
     login(email: "janko@hey.com", password: "secret")
 
-    click_on "Authenticate MFA"
+    dropdown_click "Authenticate MFA"
     click_on "Authenticate Using Recovery Code"
     fill_in "Recovery Code", with: recovery_codes[0]
     click_on "Authenticate via Recovery Code"
@@ -285,8 +285,13 @@ class AuthenticationTest < SystemTestCase
   end
 
   def logout
-    click_on "Sign out"
-    click_on "Logout"
+    dropdown_click "Sign out"
+    click_on "Logout" if Capybara.current_driver == :rack_test
+  end
+
+  def dropdown_click(text)
+    find(".dropdown-toggle").click
+    click_on text
   end
 
   def email_link
