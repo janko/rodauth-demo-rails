@@ -74,7 +74,7 @@ GEM
     chunky_png (1.3.11)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
-    erubi (1.9.0)
+    erubi (1.10.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.5)
@@ -131,15 +131,15 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
     regexp_parser (1.8.2)
-    roda (3.37.0)
+    roda (3.38.0)
       rack
-    rodauth (2.5.0)
+    rodauth (2.6.0)
       roda (>= 2.6.0)
       sequel (>= 4)
-    rodauth-rails (0.4.2)
+    rodauth-rails (0.6.0)
       bcrypt
       railties (>= 4.2, < 7)
-      rodauth (~> 2.1)
+      rodauth (~> 2.6)
       sequel-activerecord_connection (~> 1.1)
       tilt
     rotp (5.1.0)
@@ -154,7 +154,7 @@ GEM
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
     sequel (5.38.0)
-    sequel-activerecord_connection (1.1.0)
+    sequel-activerecord_connection (1.2.0)
       activerecord (>= 4.2, < 7)
       after_commit_everywhere (~> 0.1.5)
       sequel (~> 5.16)
@@ -190,7 +190,7 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 4.3)
   rails (~> 6.0)
-  rodauth-rails (~> 0.4)
+  rodauth-rails (~> 0.6)
   rotp
   rqrcode
   selenium-webdriver
