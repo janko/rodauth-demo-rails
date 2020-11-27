@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  resources :posts
   root to: "home#index"
+  resources :posts
+  get "/auth/:provider/callback", to: "rodauth#omniauth"
 end

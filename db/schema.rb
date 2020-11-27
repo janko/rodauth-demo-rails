@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_233842) do
+ActiveRecord::Schema.define(version: 2020_11_27_175524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 2020_05_03_233842) do
     t.string "key", null: false
     t.datetime "deadline", null: false
     t.datetime "email_last_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
+  end
+
+  create_table "account_identities", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.jsonb "info", default: {}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_account_identities_on_account_id"
+    t.index ["provider", "uid"], name: "index_account_identities_on_provider_and_uid", unique: true
   end
 
   create_table "account_jwt_refresh_keys", force: :cascade do |t|
@@ -159,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_233842) do
 
   add_foreign_key "account_activity_times", "accounts", column: "id"
   add_foreign_key "account_email_auth_keys", "accounts", column: "id"
+  add_foreign_key "account_identities", "accounts", on_delete: :cascade
   add_foreign_key "account_lockouts", "accounts", column: "id"
   add_foreign_key "account_login_change_keys", "accounts", column: "id"
   add_foreign_key "account_login_failures", "accounts", column: "id"

@@ -8,6 +8,7 @@ gem "webpacker", "~> 5.0"
 gem "rodauth-rails", "~> 0.6"
 gem "rotp", require: false
 gem "rqrcode", require: false
+gem "omniauth-facebook"
 
 group :test do
   gem "capybara", "~> 3.33"
