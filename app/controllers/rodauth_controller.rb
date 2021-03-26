@@ -5,7 +5,7 @@ class RodauthController < ApplicationController
     auth = request.env["omniauth.auth"]
 
     # attempt to find existing identity directly
-    identity = AccountIdentity.find_by(provider: auth["provider"], uid: auth["uid"])
+    identity = Account::Identity.find_by(provider: auth["provider"], uid: auth["uid"])
 
     if identity
       # update any external info changes

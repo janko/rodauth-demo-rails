@@ -189,7 +189,7 @@ class AuthenticationTest < SystemTestCase
     logout
     login(email: "janko@hey.com", password: "secret")
 
-    DB[:account_otp_keys].update(last_use: 1.minute.ago)
+    Account::OtpKey.update_all(last_use: 1.minute.ago)
     dropdown_click "Authenticate MFA"
     fill_in "Authentication Code", with: totp.now
     click_on "Authenticate Using TOTP"
@@ -212,7 +212,7 @@ class AuthenticationTest < SystemTestCase
     click_on "Setup Backup SMS Authentication"
     fill_in "Phone Number", with: "0123456789"
     click_on "Setup SMS Backup Number"
-    fill_in "SMS Code", with: DB[:account_sms_codes].reverse(:code_issued_at).get(:code)
+    fill_in "SMS Code", with: Account::SmsCode.order(code_issued_at: :desc).first.code
     click_on "Confirm SMS Backup Number"
 
     assert_match "SMS authentication has been setup", page.text
@@ -223,7 +223,7 @@ class AuthenticationTest < SystemTestCase
     dropdown_click "Authenticate MFA"
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
-    fill_in "SMS Code", with: DB[:account_sms_codes].reverse(:code_issued_at).get(:code)
+    fill_in "SMS Code", with: Account::SmsCode.order(code_issued_at: :desc).first.code
     click_on "Authenticate via SMS Code"
 
     assert_match "You have been multifactor authenticated", page.text
@@ -266,7 +266,7 @@ class AuthenticationTest < SystemTestCase
     fill_in "Email", with: email
     click_on "Create Account"
 
-    visit RodauthMailer.deliveries.last.body.to_s[%r{https?://\S+}]
+    visit email_link
     fill_in "Password",         with: password
     fill_in "Confirm Password", with: password
     click_on "Verify Account"
