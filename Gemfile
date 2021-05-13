@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rails", "~> 6.1"
 gem "pg", "~> 1.2"
 gem "puma", "~> 4.3"
-gem "webpacker", "~> 5.0"
+gem "webpacker", "~> 5.3"
 
 gem "rodauth-rails", "~> 0.10"
 gem "rotp", require: false
