@@ -2,11 +2,10 @@
   "name": "rodauth-demo-rails",
   "license": "MIT",
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "@rails/ujs": "^6.0.2-2",
     "@rails/webpacker": "^5.3.0",
-    "bootstrap": "^4.4.1",
-    "jquery": "^3.5.0",
-    "popper.js": "^1.16.1"
+    "bootstrap": "^5.0.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.10.3"
