@@ -101,7 +101,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.5.7)
-    nokogiri (1.11.3)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     oauth2 (1.4.4)
@@ -156,12 +156,12 @@ GEM
       thor (~> 1.0)
     rake (13.0.3)
     regexp_parser (1.8.2)
-    roda (3.42.0)
+    roda (3.44.0)
       rack
-    rodauth (2.11.0)
+    rodauth (2.12.0)
       roda (>= 2.6.0)
       sequel (>= 4)
-    rodauth-rails (0.10.0)
+    rodauth-rails (0.12.0)
       bcrypt
       railties (>= 4.2, < 7)
       rodauth (~> 2.11)
@@ -175,7 +175,7 @@ GEM
     rqrcode_core (0.2.0)
     ruby2_keywords (0.0.2)
     semantic_range (3.0.0)
-    sequel (5.42.0)
+    sequel (5.44.0)
     sequel-activerecord_connection (1.2.2)
       activerecord (>= 4.2, < 7)
       after_commit_everywhere (~> 0.1.5)
@@ -212,7 +212,7 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 4.3)
   rails (~> 6.1)
-  rodauth-rails (~> 0.10)
+  rodauth-rails (~> 0.12)
   rotp
   rqrcode
   webpacker (~> 5.3)

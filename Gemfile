@@ -5,7 +5,7 @@ gem "pg", "~> 1.2"
 gem "puma", "~> 4.3"
 gem "webpacker", "~> 5.3"
 
-gem "rodauth-rails", "~> 0.10"
+gem "rodauth-rails", "~> 0.12"
 gem "rotp", require: false
 gem "rqrcode", require: false
 gem "omniauth-facebook"
