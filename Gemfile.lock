@@ -124,7 +124,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-proxy (0.6.5)
+    rack-proxy (0.7.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -191,7 +191,7 @@ GEM
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    webpacker (5.3.0)
+    webpacker (6.0.0.rc.5)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -215,7 +215,7 @@ DEPENDENCIES
   rodauth-rails (~> 0.12)
   rotp
   rqrcode
-  webpacker (~> 5.3)
+  webpacker (= 6.0.0.rc.5)
 
 BUNDLED WITH
    2.2.15

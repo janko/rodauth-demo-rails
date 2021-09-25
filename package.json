@@ -1,13 +1,29 @@
 {
   "name": "rodauth-demo-rails",
-  "license": "MIT",
+  "private": true,
   "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "@rails/ujs": "^6.0.2-2",
-    "@rails/webpacker": "^5.3.0",
-    "bootstrap": "^5.0.1"
+    "@popperjs/core": "^2.10.1",
+    "@rails/ujs": "^6.1.4-1",
+    "@rails/webpacker": "^6.0.0-rc.5",
+    "bootstrap": "^5.1.1",
+    "css-loader": "^6.3.0",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
   },
+  "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "./node_modules/@rails/webpacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ],
   "devDependencies": {
-    "webpack-dev-server": "^3.10.3"
+    "@webpack-cli/serve": "^1.5.2",
+    "webpack-dev-server": "^4.3.0"
   }
 }
