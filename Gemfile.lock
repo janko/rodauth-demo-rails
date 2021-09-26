@@ -62,8 +62,9 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    after_commit_everywhere (0.1.5)
+    after_commit_everywhere (1.1.0)
       activerecord (>= 4.2)
+      activesupport
     bcrypt (3.1.16)
     builder (3.2.4)
     capybara (3.33.0)
@@ -156,15 +157,15 @@ GEM
       thor (~> 1.0)
     rake (13.0.3)
     regexp_parser (1.8.2)
-    roda (3.44.0)
+    roda (3.48.0)
       rack
-    rodauth (2.12.0)
+    rodauth (2.17.0)
       roda (>= 2.6.0)
       sequel (>= 4)
-    rodauth-rails (0.12.0)
+    rodauth-rails (0.16.0)
       bcrypt
       railties (>= 4.2, < 7)
-      rodauth (~> 2.11)
+      rodauth (~> 2.15)
       sequel-activerecord_connection (~> 1.1)
       tilt
     rotp (5.1.0)
@@ -175,10 +176,10 @@ GEM
     rqrcode_core (0.2.0)
     ruby2_keywords (0.0.2)
     semantic_range (3.0.0)
-    sequel (5.44.0)
-    sequel-activerecord_connection (1.2.2)
+    sequel (5.48.0)
+    sequel-activerecord_connection (1.2.3)
       activerecord (>= 4.2, < 7)
-      after_commit_everywhere (~> 0.1.5)
+      after_commit_everywhere (~> 1.0)
       sequel (~> 5.16)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -212,7 +213,7 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 4.3)
   rails (~> 6.1)
-  rodauth-rails (~> 0.12)
+  rodauth-rails (~> 0.16)
   rotp
   rqrcode
   webpacker (= 6.0.0.rc.5)

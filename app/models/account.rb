@@ -1,5 +1,7 @@
 class Account < ApplicationRecord
-  has_one :profile
-  has_many :posts
-  has_many :identities
+  include Rodauth::Rails.model
+
+  has_one :profile, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :identities, dependent: :destroy
 end
