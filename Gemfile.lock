@@ -104,6 +104,7 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jwt (2.3.0)
+    localhost (1.1.9)
     loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -141,7 +142,7 @@ GEM
       omniauth (~> 2.0)
     pg (1.2.3)
     public_suffix (4.0.4)
-    puma (4.3.5)
+    puma (5.5.2)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -233,11 +234,12 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (~> 3.33)
+  localhost
   omniauth
   omniauth-facebook
   omniauth-rails_csrf_protection
   pg (~> 1.2)
-  puma (~> 4.3)
+  puma (~> 5.5)
   rails (~> 6.1)
   rodauth-rails (~> 0.16)
   rotp

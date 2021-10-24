@@ -2,9 +2,11 @@ source "https://rubygems.org"
 
 gem "rails", "~> 6.1"
 gem "pg", "~> 1.2"
-gem "puma", "~> 4.3"
 gem "webpacker", "6.0.0.rc.5"
 gem "turbo-rails"
+
+gem "puma", "~> 5.5"
+gem "localhost", group: :development
 
 gem "rodauth-rails", "~> 0.16"
 gem "rotp", require: false
