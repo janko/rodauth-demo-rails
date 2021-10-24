@@ -36,7 +36,7 @@
           <% end %>
           <div class="dropdown-divider"></div>
           <%= link_to "Close account", rodauth.close_account_path, class: "dropdown-item text-danger" %>
-          <%= link_to "Sign out", rodauth.logout_path, method: :post, class: "dropdown-item" %>
+          <%= link_to "Sign out", rodauth.logout_path, data: { turbo_method: :post }, class: "dropdown-item" %>
         </div>
       </div>
     <% else %>
