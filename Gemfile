@@ -9,7 +9,10 @@ gem "turbo-rails"
 gem "rodauth-rails", "~> 0.16"
 gem "rotp", require: false
 gem "rqrcode", require: false
+
+gem "omniauth"
 gem "omniauth-facebook"
+gem "omniauth-rails_csrf_protection"
 
 group :test do
   gem "capybara", "~> 3.33"
