@@ -90,6 +90,25 @@ class RodauthMain < Rodauth::Rails::Auth
       Profile.find_by!(account_id: account_id).destroy
     end
 
+    # Auto generate recovery codes after TOTP setup.
+    auto_add_recovery_codes? true
+
+    # Display recovery codes after TOTP setup.
+    after_otp_setup do
+      set_notice_now_flash "#{otp_setup_notice_flash}, please make note of your recovery codes"
+      response.write add_recovery_codes_view
+      request.halt # don't process the request any further
+    end
+
+    # Redirect the user to the MFA page if they have MFA setup.
+    login_redirect do
+      if uses_two_factor_authentication?
+        two_factor_auth_required_redirect
+      else
+        "/"
+      end
+    end
+
     # Redirect to home page after logout.
     logout_redirect "/"
 

@@ -1,6 +1,12 @@
 class RodauthController < ApplicationController
   # used by Rodauth for rendering views and CSRF protection
 
+  def download_recovery_codes
+    send_data rodauth.recovery_codes.join("\n"),
+      filename: "rodauth-demo-recovery-codes.txt",
+      type: "text/plain"
+  end
+
   def omniauth
     auth = request.env["omniauth.auth"]
 
