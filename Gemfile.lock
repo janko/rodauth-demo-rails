@@ -180,12 +180,12 @@ GEM
       thor (~> 1.0)
     rake (13.0.3)
     regexp_parser (1.8.2)
-    roda (3.48.0)
+    roda (3.49.0)
       rack
     rodauth (2.17.0)
       roda (>= 2.6.0)
       sequel (>= 4)
-    rodauth-rails (0.16.0)
+    rodauth-rails (0.18.0)
       bcrypt
       railties (>= 4.2, < 7)
       rodauth (~> 2.15)
@@ -199,10 +199,10 @@ GEM
     rqrcode_core (0.2.0)
     ruby2_keywords (0.0.5)
     semantic_range (3.0.0)
-    sequel (5.48.0)
-    sequel-activerecord_connection (1.2.3)
-      activerecord (>= 4.2, < 7)
-      after_commit_everywhere (~> 1.0)
+    sequel (5.50.0)
+    sequel-activerecord_connection (1.2.4)
+      activerecord (>= 4.2, < 7.1)
+      after_commit_everywhere (~> 1.1)
       sequel (~> 5.16)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -241,7 +241,7 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 5.5)
   rails (~> 6.1)
-  rodauth-rails (~> 0.16)
+  rodauth-rails (~> 0.18)
   rotp
   rqrcode
   turbo-rails

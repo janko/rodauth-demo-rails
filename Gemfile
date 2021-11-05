@@ -8,7 +8,7 @@ gem "turbo-rails"
 gem "puma", "~> 5.5"
 gem "localhost", group: :development
 
-gem "rodauth-rails", "~> 0.16"
+gem "rodauth-rails", "~> 0.18"
 gem "rotp", require: false
 gem "rqrcode", require: false
 
