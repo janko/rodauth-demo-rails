@@ -9,6 +9,7 @@ gem "puma", "~> 5.5"
 gem "localhost", group: :development
 
 gem "rodauth-rails", "~> 0.18"
+gem "rodauth-i18n", "~> 0.2.0"
 gem "rotp", require: false
 gem "rqrcode", require: false
 

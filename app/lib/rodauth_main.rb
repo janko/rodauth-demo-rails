@@ -7,7 +7,7 @@ class RodauthMain < Rodauth::Rails::Auth
       :change_login, :verify_login_change,
       :confirm_password, :password_grace_period,
       :otp, :sms_codes, :recovery_codes,
-      :close_account, :lockout, :internal_request
+      :close_account, :lockout, :i18n
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
