@@ -7,7 +7,12 @@ class RodauthMain < Rodauth::Rails::Auth
       :change_login, :verify_login_change,
       :confirm_password, :password_grace_period,
       :otp, :sms_codes, :recovery_codes,
-      :close_account, :lockout, :i18n
+      :close_account, :lockout, :i18n, :jwt
+
+    # JSON API settings (using JWT)
+    jwt_secret { ::Rails.application.secret_key_base }
+    require_login_confirmation? { use_json? ? false : super() }
+    require_password_confirmation? { use_json? ? false : super() }
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
