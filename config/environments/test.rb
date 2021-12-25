@@ -47,4 +47,6 @@ Rails.application.configure do
 
   # Process ActiveJob jobs inline.
   config.active_job.queue_adapter = :inline
+
+  config.action_mailer.default_url_options = { host: "example.com", port: 3000 }
 end
