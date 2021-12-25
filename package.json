@@ -2,7 +2,7 @@
   "name": "rodauth-demo-rails",
   "private": true,
   "dependencies": {
-    "@hotwired/turbo-rails": "^7.0.1",
+    "@hotwired/turbo-rails": "^7.1.0",
     "@popperjs/core": "^2.10.1",
     "@rails/webpacker": "^6.0.0-rc.5",
     "bootstrap": "^5.1.1",
