@@ -57,9 +57,5 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjo4MiwiYXV0a...
 { "success": "Your account has been verified" }
 ```
 
-Keep in mind that `name` here is a custom parameter added to this application,
-it's not something that Rodauth handles out-of-the-box.
-
 [Rodauth]: https://github.com/jeremyevans/rodauth
 [rodauth-rails]: https://github.com/janko/rodauth-rails
-[http.rb]: https://github.com/httprb/http
