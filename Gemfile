@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rails", "~> 6.1"
 gem "pg", "~> 1.2"
 gem "webpacker", "6.0.0.rc.5"
-gem "turbo-rails"
+gem "turbo-rails", "~> 1.0"
 
 gem "puma", "~> 5.5"
 gem "localhost", group: :development
