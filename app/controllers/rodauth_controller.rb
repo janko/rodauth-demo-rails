@@ -2,6 +2,8 @@ class RodauthController < ApplicationController
   # used by Rodauth for rendering views and CSRF protection
 
   def download_recovery_codes
+    rodauth.require_authentication
+
     send_data rodauth.recovery_codes.join("\n"),
       filename: "rodauth-demo-recovery-codes.txt",
       type: "text/plain"
