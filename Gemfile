@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 6.1"
+gem "rails", "~> 7.0"
 gem "pg", "~> 1.2"
 gem "webpacker", "6.0.0.rc.5"
 gem "turbo-rails", "~> 1.0"
