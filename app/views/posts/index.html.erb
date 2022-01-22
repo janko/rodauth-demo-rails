@@ -17,7 +17,7 @@
         <td>
           <%= link_to 'Show', post, class: "btn btn-secondary" %>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning" %>
-          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          <%= link_to 'Destroy', post, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
