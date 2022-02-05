@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   enable_extension "plpgsql"
 
   create_table "account_active_session_keys", primary_key: ["account_id", "session_id"], force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "session_id", null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "account_authentication_audit_logs", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.datetime "at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.text "message", null: false
     t.jsonb "metadata"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "account_identities", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
     t.jsonb "info", default: {}, null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "account_jwt_refresh_keys", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "key", null: false
     t.datetime "deadline", null: false
     t.index ["account_id"], name: "account_jwt_rk_account_id_idx"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "account_previous_password_hashes", force: :cascade do |t|
-    t.bigint "account_id"
+    t.integer "account_id"
     t.string "password_hash", null: false
     t.index ["account_id"], name: "index_account_previous_password_hashes_on_account_id"
   end
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "account_webauthn_keys", primary_key: ["account_id", "webauthn_id"], force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "webauthn_id", null: false
     t.string "public_key", null: false
     t.integer "sign_count", null: false
@@ -149,12 +149,12 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
 
   create_table "accounts", force: :cascade do |t|
     t.citext "email", null: false
-    t.string "status", default: "verified", null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true, where: "((status)::text = ANY ((ARRAY['verified'::character varying, 'unverified'::character varying])::text[]))"
+    t.integer "status", default: 1, null: false
+    t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.bigint "account_id"
+    t.integer "account_id"
     t.string "title"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "account_id"
+    t.integer "account_id"
     t.string "name", null: false
     t.index ["account_id"], name: "index_profiles_on_account_id"
   end
