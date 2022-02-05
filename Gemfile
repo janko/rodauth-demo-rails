@@ -1,12 +1,10 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 7.0"
+gem "puma", "~> 5.5"
 gem "pg", "~> 1.2"
 gem "webpacker", "6.0.0.rc.5"
 gem "turbo-rails", "~> 1.0"
-
-gem "puma", "~> 5.5"
-gem "localhost", group: :development
 
 gem "rodauth-rails", "~> 1.0"
 gem "rodauth-i18n", "~> 0.3"
@@ -19,4 +17,9 @@ gem "omniauth-rails_csrf_protection"
 
 group :test do
   gem "capybara", "~> 3.33"
+end
+
+group :development do
+  gem "localhost"
+  gem "matrix"
 end

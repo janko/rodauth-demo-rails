@@ -119,6 +119,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
+    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.7.1)
@@ -257,6 +258,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 3.33)
   localhost
+  matrix
   omniauth
   omniauth-facebook
   omniauth-rails_csrf_protection
