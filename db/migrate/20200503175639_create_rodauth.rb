@@ -44,30 +44,6 @@ class CreateRodauth < ActiveRecord::Migration[6.0]
       t.datetime :deadline, null: false
     end
 
-    # Used by the audit logging feature
-    create_table :account_authentication_audit_logs do |t|
-      t.references :account, null: false
-      t.datetime :at, null: false, default: -> { "CURRENT_TIMESTAMP" }
-      t.text :message, null: false
-      t.jsonb :metadata
-      t.index [:account_id, :at], name: "audit_account_at_idx"
-      t.index :at, name: "audit_at_idx"
-    end
-
-    # Used by the jwt refresh feature
-    create_table :account_jwt_refresh_keys do |t|
-      t.references :account, null: false
-      t.string :key, null: false
-      t.datetime :deadline, null: false
-      t.index :account_id, name: "account_jwt_rk_account_id_idx"
-    end
-
-    # Used by the disallow_password_reuse feature
-    create_table :account_previous_password_hashes do |t|
-      t.references :account
-      t.string :password_hash, null: false
-    end
-
     # Used by the lockout feature
     create_table :account_login_failures do |t|
       t.foreign_key :accounts, column: :id
@@ -86,47 +62,6 @@ class CreateRodauth < ActiveRecord::Migration[6.0]
       t.string :key, null: false
       t.datetime :deadline, null: false
       t.datetime :email_last_sent, null: false, default: -> { "CURRENT_TIMESTAMP" }
-    end
-
-    # Used by the password expiration feature
-    create_table :account_password_change_times do |t|
-      t.foreign_key :accounts, column: :id
-      t.datetime :changed_at, null: false, default: -> { "CURRENT_TIMESTAMP" }
-    end
-
-    # Used by the account expiration feature
-    create_table :account_activity_times do |t|
-      t.foreign_key :accounts, column: :id
-      t.datetime :last_activity_at, null: false
-      t.datetime :last_login_at, null: false
-      t.datetime :expired_at
-    end
-
-    # Used by the single session feature
-    create_table :account_session_keys do |t|
-      t.foreign_key :accounts, column: :id
-      t.string :key, null: false
-    end
-
-    # Used by the active sessions feature
-    create_table :account_active_session_keys, primary_key: [:account_id, :session_id] do |t|
-      t.references :account
-      t.string :session_id
-      t.datetime :created_at, null: false, default: -> { "CURRENT_TIMESTAMP" }
-      t.datetime :last_use, null: false, default: -> { "CURRENT_TIMESTAMP" }
-    end
-
-    # Used by the webauthn feature
-    create_table :account_webauthn_user_ids do |t|
-      t.foreign_key :accounts, column: :id
-      t.string :webauthn_id, null: false
-    end
-    create_table :account_webauthn_keys, primary_key: [:account_id, :webauthn_id] do |t|
-      t.references :account
-      t.string :webauthn_id
-      t.string :public_key, null: false
-      t.integer :sign_count, null: false
-      t.datetime :last_use, null: false, default: -> { "CURRENT_TIMESTAMP" }
     end
 
     # Used by the otp feature
