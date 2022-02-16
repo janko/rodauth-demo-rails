@@ -3,14 +3,9 @@ class CreateRodauth < ActiveRecord::Migration[6.0]
     enable_extension "citext"
 
     create_table :accounts do |t|
-      t.citext :email, null: false, index: { unique: true, where: "status IN (1, 2)" }
       t.integer :status, null: false, default: 1
-    end
-
-    # Used if storing password hashes in a separate table (default)
-    create_table :account_password_hashes do |t|
-      t.foreign_key :accounts, column: :id
-      t.string :password_hash, null: false
+      t.citext :email, null: false, index: { unique: true, where: "status IN (1, 2)" }
+      t.string :password_hash
     end
 
     # Used by the password reset feature

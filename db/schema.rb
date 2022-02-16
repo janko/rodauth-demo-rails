@@ -55,10 +55,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
     t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
-  create_table "account_password_hashes", force: :cascade do |t|
-    t.string "password_hash", null: false
-  end
-
   create_table "account_password_reset_keys", force: :cascade do |t|
     t.string "key", null: false
     t.datetime "deadline", null: false
@@ -89,8 +85,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   end
 
   create_table "accounts", force: :cascade do |t|
-    t.citext "email", null: false
     t.integer "status", default: 1, null: false
+    t.citext "email", null: false
+    t.string "password_hash"
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
   end
 
@@ -115,7 +112,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_175524) do
   add_foreign_key "account_login_change_keys", "accounts", column: "id"
   add_foreign_key "account_login_failures", "accounts", column: "id"
   add_foreign_key "account_otp_keys", "accounts", column: "id"
-  add_foreign_key "account_password_hashes", "accounts", column: "id"
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_recovery_codes", "accounts", column: "id"
   add_foreign_key "account_remember_keys", "accounts", column: "id"
