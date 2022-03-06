@@ -2,6 +2,8 @@
   "name": "rodauth-demo-rails",
   "private": true,
   "dependencies": {
+    "@hotwired/stimulus": "^3.0.1",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo-rails": "^7.1.0",
     "@popperjs/core": "^2.10.1",
     "@rails/webpacker": "^6.0.0-rc.5",
@@ -20,7 +22,8 @@
     ]
   },
   "browserslist": [
-    "defaults"
+    "defaults",
+    "not IE 11"
   ],
   "devDependencies": {
     "@webpack-cli/serve": "^1.5.2",
