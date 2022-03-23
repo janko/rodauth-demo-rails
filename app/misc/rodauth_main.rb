@@ -62,8 +62,10 @@ class RodauthMain < Rodauth::Rails::Auth
       Rails.logger.info "\n#{phone_number} =====> #{message}\n"
     end
 
-    # Remember all logged in users.
-    after_login { remember_login }
+    # Remember all logged in users, and consider remembered users multifactor-authenticated.
+    after_login { remember_login unless uses_two_factor_authentication? }
+    after_two_factor_authentication { remember_login }
+    after_load_memory { two_factor_update_session("totp") if uses_two_factor_authentication? }
 
     # Extend user's remember period when remembered via a cookie
     extend_remember_deadline? true
