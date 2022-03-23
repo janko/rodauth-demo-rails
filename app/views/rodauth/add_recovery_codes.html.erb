@@ -3,7 +3,7 @@
 <% if rodauth.recovery_codes.any? %>
   <p class="my-3">
     Copy these recovery codes to a safe location.
-    You can also download them <%= link_to "here", "#", data: { controller: "download", action: "download#perform", download_content_value: rodauth.recovery_codes.join("\n"), download_filename_value: "rodauth-demo-recovery-codes.txt" } %>.
+    You can also download them <%= link_to "here", "data:,#{rodauth.recovery_codes.join("\n")}", download: "myapp-recovery-codes.txt" %>.
   </p>
 
   <div class="d-inline-block mb-3 border border-info rounded px-3 py-2">
