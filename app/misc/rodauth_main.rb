@@ -99,14 +99,10 @@ class RodauthMain < Rodauth::Rails::Auth
       request.halt # don't process the request any further
     end
 
-    # Redirect the user to the MFA page if they have MFA setup.
-    login_redirect do
-      if uses_two_factor_authentication?
-        two_factor_auth_required_redirect
-      else
-        "/"
-      end
-    end
+    # don't display error message when coming from login page
+    two_factor_need_authentication_error_flash { request.referer == login_url ? nil : super() }
+    # display generic message after multifactor authentication
+    two_factor_auth_notice_flash "You have been authenticated"
 
     # Redirect to home page after logout.
     logout_redirect "/"
