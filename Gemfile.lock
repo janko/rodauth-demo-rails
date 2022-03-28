@@ -110,6 +110,9 @@ GEM
     hashie (4.1.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.0.3)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-wait (0.2.1)
     jwt (2.3.0)
     localhost (1.1.9)
@@ -172,8 +175,6 @@ GEM
     rack (2.2.3)
     rack-protection (2.1.0)
       rack
-    rack-proxy (0.7.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.1)
@@ -225,7 +226,6 @@ GEM
       rqrcode_core (~> 0.2)
     rqrcode_core (0.2.0)
     ruby2_keywords (0.0.5)
-    semantic_range (3.0.0)
     sequel (5.51.0)
     sequel-activerecord_connection (1.2.5)
       activerecord (>= 4.2, < 8)
@@ -240,11 +240,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    webpacker (6.0.0.rc.5)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -257,6 +252,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (~> 3.33)
+  importmap-rails (~> 1.0)
   localhost
   matrix
   omniauth
@@ -270,7 +266,6 @@ DEPENDENCIES
   rotp
   rqrcode
   turbo-rails (~> 1.0)
-  webpacker (= 6.0.0.rc.5)
 
 BUNDLED WITH
    2.3.4
