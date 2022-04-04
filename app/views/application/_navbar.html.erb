@@ -27,15 +27,7 @@
           <%= link_to "Change email", rodauth.change_login_path, class: "dropdown-item" %>
           <%= link_to "Remember settings", rodauth.remember_path, class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
-          <% if rodauth.uses_two_factor_authentication? %>
-            <% unless rodauth.two_factor_authenticated? %>
-              <%= link_to "Authenticate MFA", rodauth.two_factor_auth_path, class: "dropdown-item" %>
-            <% end %>
-            <%= link_to "Manage MFA", rodauth.two_factor_manage_path, class: "dropdown-item" %>
-            <%= link_to "Disable MFA", rodauth.two_factor_disable_path, class: "dropdown-item" %>
-          <% else %>
-            <%= link_to "Setup MFA", rodauth.two_factor_manage_path, class: "dropdown-item" %>
-          <% end %>
+          <%= link_to "Manage MFA", rodauth.two_factor_manage_path, class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
           <%= link_to "Close account", rodauth.close_account_path, class: "dropdown-item text-danger" %>
           <%= link_to "Sign out", rodauth.logout_path, data: { turbo_method: :post }, class: "dropdown-item" %>
