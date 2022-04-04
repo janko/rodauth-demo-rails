@@ -91,8 +91,11 @@ class RodauthMain < Rodauth::Rails::Auth
       Profile.find_by!(account_id: account_id).destroy
     end
 
-    # Auto generate recovery codes after TOTP setup.
+    # Automatically generate recovery codes after TOTP setup.
     auto_add_recovery_codes? true
+
+    # Automatically remove recovery codes after disabling last MFA method.
+    auto_remove_recovery_codes? true
 
     # Display recovery codes after TOTP setup.
     after_otp_setup do
