@@ -104,8 +104,8 @@ class RodauthMain < Rodauth::Rails::Auth
       request.halt # don't process the request any further
     end
 
-    # don't display error message when coming from login page
-    two_factor_need_authentication_error_flash { request.referer == login_url ? nil : super() }
+    # don't display error flash when requesting MFA after we've just logged in
+    two_factor_need_authentication_error_flash { flash[:notice] == login_notice_flash ? nil : super() }
     # display generic message after multifactor authentication
     two_factor_auth_notice_flash "You have been authenticated"
 
