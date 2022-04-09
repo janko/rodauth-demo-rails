@@ -107,7 +107,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # don't display error flash when requesting MFA after we've just logged in
     two_factor_need_authentication_error_flash { flash[:notice] == login_notice_flash ? nil : super() }
     # display generic message after multifactor authentication
-    two_factor_auth_notice_flash "You have been authenticated"
+    two_factor_auth_notice_flash { login_notice_flash }
 
     # Redirect to home page after logout.
     logout_redirect "/"
