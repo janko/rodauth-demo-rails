@@ -100,8 +100,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # Display recovery codes after TOTP setup.
     after_otp_setup do
       set_notice_now_flash "#{otp_setup_notice_flash}, please make note of your recovery codes"
-      response.write add_recovery_codes_view
-      request.halt # don't process the request any further
+      return_response add_recovery_codes_view
     end
 
     # don't display error flash when requesting MFA after we've just logged in
