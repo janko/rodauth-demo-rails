@@ -176,7 +176,7 @@ class AuthenticationTest < SystemTestCase
   test "OTP" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    dropdown_click "Setup MFA"
+    dropdown_click "Manage MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -190,17 +190,17 @@ class AuthenticationTest < SystemTestCase
     login(email: "janko@hey.com", password: "secret")
 
     Account::OtpKey.update_all(last_use: 1.minute.ago)
-    dropdown_click "Authenticate MFA"
+    click_on "Authenticate Using TOTP"
     fill_in "Authentication Code", with: totp.now
     click_on "Authenticate Using TOTP"
 
-    assert_match "You have been multifactor authenticated", page.text
+    assert_match "You have been logged in", page.text
   end
 
   test "SMS codes" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    dropdown_click "Setup MFA"
+    dropdown_click "Manage MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -212,7 +212,7 @@ class AuthenticationTest < SystemTestCase
     click_on "Setup Backup SMS Authentication"
     fill_in "Phone Number", with: "0123456789"
     click_on "Setup SMS Backup Number"
-    fill_in "SMS Code", with: Account::SmsCode.order(code_issued_at: :desc).first.code
+    fill_in "SMS Code", with: DB[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
     click_on "Confirm SMS Backup Number"
 
     assert_match "SMS authentication has been setup", page.text
@@ -220,19 +220,18 @@ class AuthenticationTest < SystemTestCase
     logout
     login(email: "janko@hey.com", password: "secret")
 
-    dropdown_click "Authenticate MFA"
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
-    fill_in "SMS Code", with: Account::SmsCode.order(code_issued_at: :desc).first.code
+    fill_in "SMS Code", with: DB[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
     click_on "Authenticate via SMS Code"
 
-    assert_match "You have been multifactor authenticated", page.text
+    assert_match "You have been logged in", page.text
   end
 
   test "recovery codes" do
     create_account(email: "janko@hey.com", password: "secret")
 
-    dropdown_click "Setup MFA"
+    dropdown_click "Manage MFA"
     fill_in "Password", with: "secret"
     click_on "Confirm Password"
 
@@ -240,22 +239,16 @@ class AuthenticationTest < SystemTestCase
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"
 
-    dropdown_click "Manage MFA"
-    click_on "View Authentication Recovery Codes"
-    click_on "View Authentication Recovery Codes"
-    click_on "Add Authentication Recovery Codes"
-
-    recovery_codes = page.find("#recovery-codes").text.split
+    recovery_codes = page.all(".recovery-code").map(&:text)
 
     logout
     login(email: "janko@hey.com", password: "secret")
 
-    dropdown_click "Authenticate MFA"
     click_on "Authenticate Using Recovery Code"
     fill_in "Recovery Code", with: recovery_codes[0]
     click_on "Authenticate via Recovery Code"
 
-    assert_match "You have been multifactor authenticated", page.text
+    assert_match "You have been logged in", page.text
   end
 
   private
