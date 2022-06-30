@@ -1,6 +1,8 @@
 require "test_helper"
 
-class AuthenticationTest < SystemTestCase
+class AuthenticationTest < ActionDispatch::SystemTestCase
+  driven_by :rack_test
+
   def setup
     super
     visit "/"
