@@ -139,31 +139,6 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_match "You have been logged in", page.text
   end
 
-  test "lockout" do
-    create_account(email: "janko@hey.com", password: "secret")
-    logout
-
-    login(email: "janko@hey.com", password: "incorrect secret")
-    assert_match "There was an error logging in", page.text
-
-    login(email: "janko@hey.com", password: "incorrect secret")
-    assert_match "There was an error logging in", page.text
-
-    login(email: "janko@hey.com", password: "incorrect secret")
-    assert_match "There was an error logging in", page.text
-
-    login(email: "janko@hey.com")
-    assert_match "This account is currently locked out and cannot be logged in to", page.text
-
-    click_on "Request Account Unlock"
-    assert_match "An email has been sent to you with a link to unlock your account", page.text
-
-    visit email_link
-    click_on "Unlock Account"
-    assert_match "Your account has been unlocked", page.text
-    assert_match "Janko", page.text
-  end
-
   test "close account" do
     create_account(email: "janko@hey.com", password: "secret")
 
