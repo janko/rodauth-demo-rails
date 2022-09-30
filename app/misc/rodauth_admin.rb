@@ -17,7 +17,7 @@ class RodauthAdmin < RodauthBase
     delete_account_on_close? true
 
     create_unlock_account_email do
-      RodauthMailer.unlock_account(*self.class.configuration_name, account_id, unlock_account_key_value)
+      RodauthMailer.unlock_account(self.class.configuration_name, account_id, unlock_account_key_value)
     end
 
     unlock_account_redirect "/admin/multifactor-auth"

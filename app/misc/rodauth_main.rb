@@ -16,7 +16,7 @@ class RodauthMain < RodauthBase
 
     # Use our own mailer for sending emails.
     create_verify_account_email do
-      RodauthMailer.verify_account(*self.class.configuration_name, account_id, verify_account_key_value)
+      RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
 
     # Remember all logged in users, and consider remembered users multifactor-authenticated.
