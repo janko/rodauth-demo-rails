@@ -6,6 +6,8 @@ class RodauthAdmin < RodauthBase
 
     prefix "/admin"
     session_key_prefix "admin_"
+    flash_notice_key :notice
+    flash_error_key :alert
 
     # disallow creating accounts via the UI
     create_account_route nil
@@ -20,7 +22,7 @@ class RodauthAdmin < RodauthBase
       RodauthMailer.unlock_account(self.class.configuration_name, account_id, unlock_account_key_value)
     end
 
-    unlock_account_redirect "/admin/multifactor-auth"
+    unlock_account_redirect { two_factor_auth_path }
     default_redirect { logged_in? ? "/admin" : "/" }
   end
 end

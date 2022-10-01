@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/janko/rodauth.git
-  revision: 059ee1e9f0a48c59076e823fa96ee55572484147
-  branch: account-table-ds-method
-  specs:
-    rodauth (2.25.0)
-      roda (>= 2.6.0)
-      sequel (>= 4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -213,6 +204,9 @@ GEM
     regexp_parser (1.8.2)
     roda (3.57.0)
       rack
+    rodauth (2.25.0)
+      roda (>= 2.6.0)
+      sequel (>= 4)
     rodauth-i18n (0.3.1)
       i18n (~> 1.0)
       rodauth (~> 2.19)
@@ -267,7 +261,6 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 5.5)
   rails (~> 7.0)
-  rodauth!
   rodauth-i18n (~> 0.3)
   rodauth-rails (~> 1.3)
   rotp

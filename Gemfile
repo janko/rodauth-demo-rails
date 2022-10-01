@@ -7,7 +7,6 @@ gem "turbo-rails", "~> 1.0"
 
 gem "rodauth-rails", "~> 1.3"
 gem "rodauth-i18n", "~> 0.3"
-gem "rodauth", github: "janko/rodauth", branch: "account-table-ds-method"
 gem "rotp", require: false
 gem "rqrcode", require: false
 
