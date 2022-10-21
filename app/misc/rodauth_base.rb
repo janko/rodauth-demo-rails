@@ -19,11 +19,6 @@ class RodauthBase < Rodauth::Rails::Auth
 
     before_create_account { account[:type] = account_type }
 
-    account_from_login do |login|
-      account = super(login)
-      account if account && account[:type] == account_type
-    end
-
     create_reset_password_email do
       RodauthMailer.reset_password(self.class.configuration_name, account_id, reset_password_key_value)
     end
@@ -72,12 +67,11 @@ class RodauthBase < Rodauth::Rails::Auth
 
   private
 
-  def account_ds(*)
+  def account_table_ds
     super.where(type: account_type)
   end
 
   def account_type
-    auth_class = internal_request? ? self.class.superclass : self.class
-    auth_class.configuration_name&.to_s || "main"
+    self.class.configuration_name&.to_s || "main"
   end
 end

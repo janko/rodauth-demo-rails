@@ -6,8 +6,6 @@ class RodauthAdmin < RodauthBase
 
     prefix "/admin"
     session_key_prefix "admin_"
-    flash_notice_key :notice
-    flash_error_key :alert
 
     # disallow creating accounts via the UI
     create_account_route nil
