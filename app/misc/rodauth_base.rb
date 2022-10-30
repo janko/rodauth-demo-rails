@@ -13,6 +13,11 @@ class RodauthBase < Rodauth::Rails::Auth
     # Store password hash in a column instead of a separate table.
     account_password_hash_column :password_hash
 
+    # Passwords shorter than 8 characters are considered weak according to OWASP.
+    password_minimum_length 8
+    # bcrypt has a maximum input length of 72 bytes, truncating any extra bytes.
+    password_maximum_bytes 72
+
     # Redirect back to originally requested location after authentication.
     login_return_to_requested_location? true
     two_factor_auth_return_to_requested_location? true

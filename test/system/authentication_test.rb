@@ -19,8 +19,8 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_match "Janko", page.text
 
     visit email_link
-    fill_in "Password",         with: "secret"
-    fill_in "Confirm Password", with: "secret"
+    fill_in "Password",         with: "secret123"
+    fill_in "Confirm Password", with: "secret123"
     click_on "Verify Account"
 
     assert_match "Your account has been verified", page.text
@@ -29,7 +29,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "password login" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
     logout
 
     click_on "Sign in"
@@ -38,7 +38,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
     assert_match "Login recognized, please enter your password", page.text
 
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Login"
 
     assert_match "You have been logged in", page.text
@@ -75,7 +75,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "reset password" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
     logout
 
     click_on "Sign in"
@@ -98,10 +98,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "change password" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Change password"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
     fill_in "New Password", with: "new secret"
@@ -117,10 +117,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "change email" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Change email"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
     fill_in "Email", with: "janko@bye.com"
@@ -135,15 +135,15 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_equal "/", page.current_path
 
     logout
-    login(email: "janko@bye.com", password: "secret")
+    login(email: "janko@bye.com", password: "secret123")
     assert_match "You have been logged in", page.text
   end
 
   test "close account" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Close account"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Close Account"
 
     assert_match "Your account has been closed", page.text
@@ -151,10 +151,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "OTP" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Manage MFA"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
@@ -164,7 +164,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_match "TOTP authentication is now setup", page.text
 
     logout
-    login(email: "janko@hey.com", password: "secret")
+    login(email: "janko@hey.com", password: "secret123")
 
     Account::OtpKey.update_all(last_use: 1.minute.ago)
     click_on "Authenticate Using TOTP"
@@ -175,10 +175,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "SMS codes" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Manage MFA"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
@@ -195,7 +195,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_match "SMS authentication has been setup", page.text
 
     logout
-    login(email: "janko@hey.com", password: "secret")
+    login(email: "janko@hey.com", password: "secret123")
 
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
@@ -206,10 +206,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   test "recovery codes" do
-    create_account(email: "janko@hey.com", password: "secret")
+    create_account(email: "janko@hey.com", password: "secret123")
 
     dropdown_click "Manage MFA"
-    fill_in "Password", with: "secret"
+    fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
@@ -219,7 +219,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     recovery_codes = page.all(".recovery-code").map(&:text)
 
     logout
-    login(email: "janko@hey.com", password: "secret")
+    login(email: "janko@hey.com", password: "secret123")
 
     click_on "Authenticate Using Recovery Code"
     fill_in "Recovery Code", with: recovery_codes[0]
@@ -230,7 +230,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
   private
 
-  def create_account(email: "janko@hey.com", password: "secret")
+  def create_account(email: "janko@hey.com", password: "secret123")
     click_on "Sign up"
     fill_in "Name", with: "Janko"
     fill_in "Email", with: email
