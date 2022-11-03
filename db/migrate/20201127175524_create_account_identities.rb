@@ -5,6 +5,7 @@ class CreateAccountIdentities < ActiveRecord::Migration[6.0]
       t.string :provider, null: false
       t.string :uid, null: false
       t.index [:provider, :uid], unique: true
+      t.timestamps
     end
   end
 end

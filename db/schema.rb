@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2022_09_30_160029) do
     t.integer "account_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_account_identities_on_account_id"
     t.index ["provider", "uid"], name: "index_account_identities_on_provider_and_uid", unique: true
   end

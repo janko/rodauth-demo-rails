@@ -59,6 +59,9 @@ class RodauthMain < RodauthBase
       Profile.create!(account_id: account_id, name: omniauth_name)
     end
 
+    omniauth_identity_insert_hash { super().merge(created_at: Time.now) }
+    omniauth_identity_update_hash { { updated_at: Time.now } }
+
     # JSON API settings (using JWT)
     jwt_secret { ::Rails.application.secret_key_base }
     require_login_confirmation? { use_json? ? false : super() }
