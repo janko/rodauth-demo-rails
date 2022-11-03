@@ -3,7 +3,7 @@ class RodauthMain < RodauthBase
     # List of authentication features that are loaded.
     enable :verify_account, :verify_account_grace_period,
       :remember, :confirm_password, :password_grace_period,
-      :i18n, :jwt
+      :i18n, :jwt, :omniauth
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
@@ -50,6 +50,14 @@ class RodauthMain < RodauthBase
 
     # Redirect to wherever login redirects to after account verification.
     verify_account_redirect { login_redirect }
+
+    if facebook = Rails.application.credentials.facebook
+      omniauth_provider :facebook, facebook[:app_id], facebook[:app_secret], scope: "email"
+    end
+
+    after_omniauth_create_account do
+      Profile.create!(account_id: account_id, name: omniauth_name)
+    end
 
     # JSON API settings (using JWT)
     jwt_secret { ::Rails.application.secret_key_base }

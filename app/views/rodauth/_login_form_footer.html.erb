@@ -3,7 +3,7 @@
 
   <ul>
     <li>
-      <%= button_to "Login via Facebook", "/auth/facebook",
+      <%= button_to "Login via Facebook", rodauth.omniauth_request_path(:facebook),
         method: :post, data: { turbo: false }, class: "btn btn-link p-0" %>
     </li>
     <% rodauth.login_form_footer_links.sort.each do |_, link, text| %>
