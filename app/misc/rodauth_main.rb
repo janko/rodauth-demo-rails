@@ -51,8 +51,8 @@ class RodauthMain < RodauthBase
     # Redirect to wherever login redirects to after account verification.
     verify_account_redirect { login_redirect }
 
-    if facebook = Rails.application.credentials.facebook
-      omniauth_provider :facebook, facebook[:app_id], facebook[:app_secret], scope: "email"
+    if github = Rails.application.credentials.github
+      omniauth_provider :github, github[:client_id], github[:client_secret]
     end
 
     after_omniauth_create_account do

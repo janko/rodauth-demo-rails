@@ -2,9 +2,9 @@
   <%== rodauth.login_form_footer_links_heading %>
 
   <ul>
-    <% if rodauth.omniauth_providers.include?(:facebook) %>
+    <% if rodauth.omniauth_providers.include?(:github) %>
       <li>
-        <%= button_to "Login via Facebook", rodauth.omniauth_request_path(:facebook),
+        <%= button_to "Login via GitHub", rodauth.omniauth_request_path(:github),
           method: :post, data: { turbo: false }, class: "btn btn-link p-0" %>
       </li>
     <% end %>

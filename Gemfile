@@ -11,7 +11,7 @@ gem "rotp", require: false
 gem "rqrcode", require: false
 
 gem "rodauth-omniauth"
-gem "omniauth-facebook"
+gem "omniauth-github"
 
 group :test do
   gem "capybara", "~> 3.33"
