@@ -5,3 +5,7 @@ development:
 test:
   adapter: postgresql
   database: rodauth_demo_test
+
+production:
+  adapter: postgresql
+  database: rodauth_demo_production
