@@ -9,7 +9,7 @@ class RodauthMain < RodauthBase
     rails_controller { RodauthController }
 
     # Ask for password only when verifying the account.
-    verify_account_set_password? true
+    verify_account_set_password? false
 
     # Amount of time between asking for password for sensitive actions.
     password_grace_period 1.hour
