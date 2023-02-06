@@ -10,38 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_160029) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_30_160029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "account_email_auth_keys", force: :cascade do |t|
     t.string "key", null: false
-    t.datetime "deadline", null: false
-    t.datetime "email_last_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "deadline", precision: nil, null: false
+    t.datetime "email_last_sent", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "account_identities", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.bigint "account_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_identities_on_account_id"
     t.index ["provider", "uid"], name: "index_account_identities_on_provider_and_uid", unique: true
   end
 
   create_table "account_lockouts", force: :cascade do |t|
     t.string "key", null: false
-    t.datetime "deadline", null: false
-    t.datetime "email_last_sent"
+    t.datetime "deadline", precision: nil, null: false
+    t.datetime "email_last_sent", precision: nil
   end
 
   create_table "account_login_change_keys", force: :cascade do |t|
     t.string "key", null: false
     t.string "login", null: false
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
   end
 
   create_table "account_login_failures", force: :cascade do |t|
@@ -51,13 +50,13 @@ ActiveRecord::Schema.define(version: 2022_09_30_160029) do
   create_table "account_otp_keys", force: :cascade do |t|
     t.string "key", null: false
     t.integer "num_failures", default: 0, null: false
-    t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "last_use", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "account_password_reset_keys", force: :cascade do |t|
     t.string "key", null: false
-    t.datetime "deadline", null: false
-    t.datetime "email_last_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "deadline", precision: nil, null: false
+    t.datetime "email_last_sent", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "account_recovery_codes", primary_key: ["id", "code"], force: :cascade do |t|
@@ -67,20 +66,20 @@ ActiveRecord::Schema.define(version: 2022_09_30_160029) do
 
   create_table "account_remember_keys", force: :cascade do |t|
     t.string "key", null: false
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
   end
 
   create_table "account_sms_codes", force: :cascade do |t|
     t.string "phone_number", null: false
     t.integer "num_failures"
     t.string "code"
-    t.datetime "code_issued_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "code_issued_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "account_verification_keys", force: :cascade do |t|
     t.string "key", null: false
-    t.datetime "requested_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.datetime "email_last_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "requested_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "email_last_sent", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "accounts", force: :cascade do |t|
@@ -92,16 +91,16 @@ ActiveRecord::Schema.define(version: 2022_09_30_160029) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "account_id"
+    t.bigint "account_id"
     t.string "title"
     t.text "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_posts_on_account_id"
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.integer "account_id"
+    t.bigint "account_id"
     t.string "name", null: false
     t.index ["account_id"], name: "index_profiles_on_account_id"
   end
