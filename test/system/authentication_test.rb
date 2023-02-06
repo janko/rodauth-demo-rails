@@ -12,6 +12,8 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     click_on "Sign up"
     fill_in "Name", with: "Janko"
     fill_in "Email", with: "janko@hey.com"
+    fill_in "Password",         with: "secret123"
+    fill_in "Confirm Password", with: "secret123"
     click_on "Create Account"
 
     assert_match "An email has been sent to you with a link to verify your account", page.text
@@ -19,8 +21,6 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     assert_match "Janko", page.text
 
     visit email_link
-    fill_in "Password",         with: "secret123"
-    fill_in "Confirm Password", with: "secret123"
     click_on "Verify Account"
 
     assert_match "Your account has been verified", page.text
@@ -189,7 +189,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     click_on "Setup Backup SMS Authentication"
     fill_in "Phone Number", with: "0123456789"
     click_on "Setup SMS Backup Number"
-    fill_in "SMS Code", with: DB[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
+    fill_in "SMS Code", with: db[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
     click_on "Confirm SMS Backup Number"
 
     assert_match "SMS authentication has been setup", page.text
@@ -199,7 +199,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
-    fill_in "SMS Code", with: DB[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
+    fill_in "SMS Code", with: db[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
     click_on "Authenticate via SMS Code"
 
     assert_match "You have been logged in", page.text
@@ -234,11 +234,11 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     click_on "Sign up"
     fill_in "Name", with: "Janko"
     fill_in "Email", with: email
+    fill_in "Password",         with: password
+    fill_in "Confirm Password", with: password
     click_on "Create Account"
 
     visit email_link
-    fill_in "Password",         with: password
-    fill_in "Confirm Password", with: password
     click_on "Verify Account"
   end
 

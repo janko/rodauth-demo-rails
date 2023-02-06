@@ -6,11 +6,11 @@ class JsonTest < ActionDispatch::IntegrationTest
     assert_equal 401, response.status
     assert_equal "There was an error logging in", response.parsed_body.fetch("error")
 
-    post "/create-account", params: { login: "user@example.com", name: "User" }, as: :json
+    post "/create-account", params: { login: "user@example.com", name: "User", password: "secret123" }, as: :json
     assert_equal 200, response.status
     assert_equal "An email has been sent to you with a link to verify your account", response.parsed_body.fetch("success")
 
-    post "/verify-account", params: { key: email_link[/key=(.+)/, 1], password: "secret123" }, as: :json
+    post "/verify-account", params: { key: email_link[/key=(.+)/, 1] }, as: :json
     assert_equal 200, response.status
     assert_equal "Your account has been verified", response.parsed_body.fetch("success")
 
