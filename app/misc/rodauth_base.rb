@@ -1,3 +1,5 @@
+require "sequel/core"
+
 class RodauthBase < Rodauth::Rails::Auth
   configure do
     enable :create_account, :login, :email_auth, :logout,
@@ -5,6 +7,9 @@ class RodauthBase < Rodauth::Rails::Auth
       :change_login, :verify_login_change,
       :otp, :sms_codes, :recovery_codes,
       :close_account
+
+    # Initialize Sequel and have it reuse Active Record's database connection.
+    db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
 
     title_instance_variable :@page_title
 
