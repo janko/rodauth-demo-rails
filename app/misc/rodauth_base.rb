@@ -5,7 +5,7 @@ class RodauthBase < Rodauth::Rails::Auth
     enable :create_account, :login, :email_auth, :logout,
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
-      :otp, :sms_codes, :recovery_codes,
+      :otp, :sms_codes, :recovery_codes, :webauthn,
       :close_account
 
     # Initialize Sequel and have it reuse Active Record's database connection.

@@ -10,6 +10,7 @@ gem "rodauth-i18n", "~> 0.7"
 gem "rodauth-omniauth", "~> 0.3"
 gem "rotp", require: false
 gem "rqrcode", require: false
+gem "webauthn", require: false
 gem "omniauth-github"
 
 group :test do
