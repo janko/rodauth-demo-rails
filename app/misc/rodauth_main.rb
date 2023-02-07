@@ -1,7 +1,7 @@
 class RodauthMain < RodauthBase
   configure do
     # List of authentication features that are loaded.
-    enable :verify_account, :verify_account_grace_period,
+    enable :verify_account, :verify_account_grace_period, :active_sessions,
       :remember, :confirm_password, :password_grace_period,
       :i18n, :jwt, :omniauth
 

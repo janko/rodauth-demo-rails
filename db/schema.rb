@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_30_160029) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_083723) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "account_active_session_keys", primary_key: ["account_id", "session_id"], force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "session_id", null: false
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["account_id"], name: "index_account_active_session_keys_on_account_id"
+  end
 
   create_table "account_email_auth_keys", force: :cascade do |t|
     t.string "key", null: false
@@ -105,6 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_160029) do
     t.index ["account_id"], name: "index_profiles_on_account_id"
   end
 
+  add_foreign_key "account_active_session_keys", "accounts"
   add_foreign_key "account_email_auth_keys", "accounts", column: "id"
   add_foreign_key "account_identities", "accounts", on_delete: :cascade
   add_foreign_key "account_lockouts", "accounts", column: "id"
