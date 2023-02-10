@@ -45,7 +45,7 @@ and the custom name parameter:
 POST /create-account
 Content-Type: application/json
 
-{ "login": "user@example.com", "name": "User" }
+{ "login": "user@example.com", "name": "User", "password": "secret123" }
 ```
 ```http
 200 OK
@@ -62,7 +62,7 @@ token from the verification email link and the password for the account:
 POST /verify-account
 Content-Type: application/json
 
-{ "key": "81_nG-P3iYpWc3Y4-A74J821ssYHctlOhChUCPfsDh96Q4", "password": "secret" }
+{ "key": "81_nG-P3iYpWc3Y4-A74J821ssYHctlOhChUCPfsDh96Q4" }
 ```
 ```http
 200 OK
