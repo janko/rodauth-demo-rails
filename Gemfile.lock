@@ -72,6 +72,9 @@ GEM
       activerecord (>= 4.2)
       activesupport
     android_key_attestation (0.3.0)
+    argon2 (2.2.0)
+      ffi (~> 1.15)
+      ffi-compiler (~> 1.0)
     awrence (1.2.1)
     bcrypt (3.1.18)
     bindata (2.4.15)
@@ -97,6 +100,10 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    ffi (1.15.5)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -261,6 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  argon2
   capybara (~> 3.33)
   localhost
   matrix

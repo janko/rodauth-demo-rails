@@ -8,6 +8,7 @@ gem "turbo-rails", "~> 1.0"
 gem "rodauth-rails", "~> 1.7"
 gem "rodauth-i18n", "~> 0.7"
 gem "rodauth-omniauth", "~> 0.3"
+gem "argon2", require: false
 gem "rotp", require: false
 gem "rqrcode", require: false
 gem "webauthn", require: false

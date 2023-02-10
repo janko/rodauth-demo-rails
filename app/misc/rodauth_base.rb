@@ -6,7 +6,7 @@ class RodauthBase < Rodauth::Rails::Auth
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
       :otp, :sms_codes, :recovery_codes, :webauthn,
-      :close_account
+      :close_account, :argon2
 
     # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
@@ -18,10 +18,15 @@ class RodauthBase < Rodauth::Rails::Auth
     # Store password hash in a column instead of a separate table.
     account_password_hash_column :password_hash
 
+    # Set up password pepper for argon2.
+    argon2_secret Rails.application.credentials.argon2_secret
+    # We're using argon2, so don't load bcrypt gem.
+    require_bcrypt? false
+
     # Passwords shorter than 8 characters are considered weak according to OWASP.
     password_minimum_length 8
-    # bcrypt has a maximum input length of 72 bytes, truncating any extra bytes.
-    password_maximum_bytes 72
+    # Having a maximum password length set prevents long password DoS attacks.
+    password_maximum_length 64
 
     # Redirect back to originally requested location after authentication.
     login_return_to_requested_location? true
