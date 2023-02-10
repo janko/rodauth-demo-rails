@@ -157,6 +157,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
+    click_on "Setup TOTP Authentication"
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"
@@ -181,6 +182,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
+    click_on "Setup TOTP Authentication"
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"
@@ -212,6 +214,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     fill_in "Password", with: "secret123"
     click_on "Confirm Password"
 
+    click_on "Setup TOTP Authentication"
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
     fill_in "Authentication Code", with: totp.now
     click_on "Setup TOTP Authentication"

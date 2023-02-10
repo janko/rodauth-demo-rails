@@ -17,6 +17,7 @@ class AdminTest < ActionDispatch::SystemTestCase
     click_on "Login"
     assert_match "This account has not been setup for multifactor authentication", page.text
 
+    click_on "Setup TOTP Authentication"
     fill_in "Password", with: "Sekret197"
     totp = ROTP::TOTP.new(page.text[/Secret: (\w+)/, 1])
     fill_in "Authentication Code", with: totp.now
