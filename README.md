@@ -10,7 +10,7 @@ It implements authentication features such as the following:
 * reset and change password
 * change login with email verification
 * password confirmation dialog before sensitive actions
-* multifactor authentication (TOTP, SMS and recovery codes)
+* multifactor authentication (TOTP, SMS codes, recovery codes, WebAuthn)
 * social login with [rodauth-omniauth]
 * close account
 
