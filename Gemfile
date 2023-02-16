@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 7.0"
-gem "puma", "~> 5.5"
-gem "pg", "~> 1.2"
-gem "turbo-rails", "~> 1.0"
+gem "puma", "~> 6.0"
+gem "pg", "~> 1.4"
+gem "turbo-rails", "~> 1.3"
 
 gem "rodauth-rails", "~> 1.7"
 gem "rodauth-i18n", "~> 0.7"
@@ -12,6 +12,7 @@ gem "argon2", require: false
 gem "rotp", require: false
 gem "rqrcode", require: false
 gem "webauthn", require: false
+gem "jwt", require: false
 gem "omniauth-github"
 
 group :test do
