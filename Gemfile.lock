@@ -94,7 +94,7 @@ GEM
       cbor (~> 0.5.9)
       openssl-signature_algorithm (~> 1.0)
     crass (1.0.6)
-    date (3.3.1)
+    date (3.3.3)
     erubi (1.11.0)
     faraday (2.7.1)
       faraday-net_http (>= 2.0, < 3.1)
