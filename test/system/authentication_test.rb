@@ -268,6 +268,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   def email_link
-    RodauthMailer.deliveries.last.body.to_s[%r{https?://\S+}]
+    email = RodauthMailer.deliveries.last
+    email.body.to_s[%r{https?://\S+}]
   end
 end
