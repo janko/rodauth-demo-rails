@@ -12,7 +12,11 @@ class RodauthMain < RodauthBase
     verify_account_set_password? false
 
     # Amount of time between asking for password for sensitive actions.
-    password_grace_period 1.hour
+    password_grace_period 1.hour.to_i
+
+    # Expire inactive sessions after 14 days and set infinite lifespan.
+    session_inactivity_deadline 14.days.to_i
+    session_lifetime_deadline nil
 
     # Use our own mailer for sending emails.
     create_verify_account_email do
