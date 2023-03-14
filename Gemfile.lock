@@ -210,7 +210,7 @@ GEM
       rodauth (~> 2.19)
     rodauth-model (0.2.1)
       rodauth (~> 2.0)
-    rodauth-omniauth (0.3.2)
+    rodauth-omniauth (0.3.3)
       omniauth (~> 2.0)
       rodauth (~> 2.13)
     rodauth-rails (1.7.0)
