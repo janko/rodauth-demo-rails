@@ -3,8 +3,12 @@ source "https://rubygems.org"
 gem "rails", "~> 7.0"
 gem "puma", "~> 6.0"
 gem "pg", "~> 1.4"
-gem "turbo-rails", "~> 1.3"
 gem "bootsnap", "~> 1.16", require: false
+
+gem "propshaft"
+gem "turbo-rails", "~> 1.3"
+gem "stimulus-rails", "~> 1.2"
+gem "importmap-rails"
 
 gem "rodauth-rails", "~> 1.7"
 gem "rodauth-i18n", "~> 0.7"
