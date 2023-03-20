@@ -27,6 +27,7 @@ adds additional behaviour:
 * setting up MFA is required
 * account is locked on 4th invalid login attempt
 * password complexity requirements
+* disallow common or breached passwords
 * account creation from the console (disabled in UI)
 * closed accounts are deleted from the database
 

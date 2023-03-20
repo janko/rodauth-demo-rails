@@ -1,6 +1,7 @@
 class RodauthAdmin < RodauthBase
   configure do
-    enable :lockout, :password_complexity, :internal_request
+    enable :lockout, :password_complexity, :disallow_common_passwords,
+      :pwned_password, :internal_request
 
     rails_controller { Admin::RodauthController }
 
@@ -19,6 +20,12 @@ class RodauthAdmin < RodauthBase
     create_unlock_account_email do
       RodauthMailer.unlock_account(self.class.configuration_name, account_id, unlock_account_key_value)
     end
+
+    # avoid making HTTP requests in tests
+    password_pwned? { |password| false } if Rails.env.test?
+
+    # require password to be pwned multiple times
+    password_allowed_pwned_count 5
 
     unlock_account_redirect { two_factor_auth_path }
     default_redirect { logged_in? ? "/admin" : "/" }

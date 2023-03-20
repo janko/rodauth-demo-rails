@@ -174,6 +174,7 @@ GEM
     public_suffix (4.0.4)
     puma (6.1.0)
       nio4r (~> 2.0)
+    pwned (2.4.1)
     racc (1.6.2)
     rack (2.2.6.4)
     rack-protection (3.0.5)
@@ -221,6 +222,9 @@ GEM
     rodauth-omniauth (0.3.3)
       omniauth (~> 2.0)
       rodauth (~> 2.13)
+    rodauth-pwned (0.2.1)
+      pwned (~> 2.1)
+      rodauth (~> 2.0)
     rodauth-rails (1.8.0)
       bcrypt
       railties (>= 4.2, < 8)
@@ -296,6 +300,7 @@ DEPENDENCIES
   rails (~> 7.0)
   rodauth-i18n (~> 0.7)
   rodauth-omniauth (~> 0.3)
+  rodauth-pwned (~> 0.2)
   rodauth-rails (~> 1.7)
   rotp
   rqrcode
