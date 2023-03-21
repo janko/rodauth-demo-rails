@@ -21,11 +21,17 @@ class RodauthAdmin < RodauthBase
       RodauthMailer.unlock_account(self.class.configuration_name, account_id, unlock_account_key_value)
     end
 
-    # avoid making HTTP requests in tests
     password_pwned? { |password| false } if Rails.env.test?
-
-    # require password to be pwned multiple times
     password_allowed_pwned_count 5
+    pwned_request_options open_timeout: 1, read_timeout: 2
+    after_login do
+      super()
+      db.after_commit do # better to make HTTP requests outside of transactions
+        if param_or_nil(password_param) && password_pwned?(param(password_param))
+          set_redirect_error_flash "Your password has previously appeared in a data breach and should never be used. We strongly recommend you change your password."
+        end
+      end
+    end
 
     unlock_account_redirect { two_factor_auth_path }
     default_redirect { logged_in? ? "/admin" : "/" }
