@@ -1,0 +1,7 @@
+<% cred = rodauth.webauthn_credential_options_for_get %>
+
+<%= form_with url: rodauth.webauthn_login_path, method: :post, data: { controller: "passkey", passkey_options_value: cred.as_json.to_json, turbo: false }, class: "d-none" do |form| %>
+  <%= form.hidden_field rodauth.webauthn_auth_challenge_param, value: cred.challenge %>
+  <%= form.hidden_field rodauth.webauthn_auth_challenge_hmac_param, value: rodauth.compute_hmac(cred.challenge) %>
+  <%= form.hidden_field rodauth.webauthn_auth_param, data: { passkey_target: "input" } %>
+<% end %>

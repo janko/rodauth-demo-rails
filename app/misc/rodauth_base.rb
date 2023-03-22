@@ -2,10 +2,11 @@ require "sequel/core"
 
 class RodauthBase < Rodauth::Rails::Auth
   configure do
-    enable :create_account, :login, :email_auth, :logout,
+    enable :create_account, :login, :logout,
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
-      :otp, :sms_codes, :recovery_codes, :webauthn,
+      :otp, :sms_codes, :recovery_codes,
+      :webauthn, :webauthn_login, :webauthn_verify_account,
       :close_account, :argon2
 
     # Initialize Sequel and have it reuse Active Record's database connection.
@@ -43,9 +44,9 @@ class RodauthBase < Rodauth::Rails::Auth
     create_password_changed_email do
       RodauthMailer.password_changed(self.class.configuration_name, account_id)
     end
-    create_email_auth_email do
-      RodauthMailer.email_auth(self.class.configuration_name, account_id, email_auth_key_value)
-    end
+    # create_email_auth_email do
+    #   RodauthMailer.email_auth(self.class.configuration_name, account_id, email_auth_key_value)
+    # end
     send_email do |email|
       # queue email delivery on the mailer after the transaction commits
       db.after_commit { email.deliver_later }
@@ -57,10 +58,10 @@ class RodauthBase < Rodauth::Rails::Auth
     end
 
     # Automatically generate recovery codes after TOTP setup.
-    auto_add_recovery_codes? true
+    # auto_add_recovery_codes? true
 
     # Automatically remove recovery codes after disabling last MFA method.
-    auto_remove_recovery_codes? true
+    # auto_remove_recovery_codes? true
 
     # Display recovery codes after TOTP setup.
     after_otp_setup do
@@ -78,6 +79,25 @@ class RodauthBase < Rodauth::Rails::Auth
 
     # Redirect to login page after password reset.
     reset_password_redirect { login_path }
+
+    webauthn_user_verification "preferred"
+    account_webauthn_ids { logged_in? || account ? super() : [] }
+    webauthn_authenticator_selection do
+      super().except("requireResidentKey").merge("residentKey" => "required")
+    end
+    account_from_login do |login|
+      if request.path == webauthn_login_path && login.empty?
+        data = JSON.parse(param(webauthn_auth_param))
+        user_id = data["response"]["userHandle"]
+        account_id = db[webauthn_user_ids_table]
+          .where(webauthn_user_ids_webauthn_id_column => user_id)
+          .get(webauthn_user_ids_account_id_column)
+
+        account_ds(account_id).first
+      else
+        super(login)
+      end
+    end
   end
 
   private
