@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_084135) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_01_212646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_084135) do
     t.string "public_key", null: false
     t.integer "sign_count", null: false
     t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.string "nickname"
     t.index ["account_id"], name: "index_account_webauthn_keys_on_account_id"
   end
 

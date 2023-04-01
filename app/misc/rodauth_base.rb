@@ -68,6 +68,11 @@ class RodauthBase < Rodauth::Rails::Auth
       return_response add_recovery_codes_view
     end
 
+    # Allow users to set name for their WebAuthn credentials.
+    webauthn_key_insert_hash do |credential|
+      super(credential).merge(nickname: param("nickname"))
+    end
+
     # don't display error flash when requesting MFA after we've just logged in
     two_factor_need_authentication_error_flash { flash[:notice] == login_notice_flash ? nil : super() }
     # display generic message after multifactor authentication

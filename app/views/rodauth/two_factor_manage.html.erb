@@ -8,6 +8,15 @@
   </ul>
 <% end %>
 
+<% if current_account.webauthn_keys.any? %>
+  <h2>WebAuthn credentials</h2>
+  <ul>
+    <% current_account.webauthn_keys.each do |webauthn_key| %>
+      <li><%= webauthn_key.nickname %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if rodauth.two_factor_remove_links.any? %>
   <%== rodauth.two_factor_remove_heading %>
 
