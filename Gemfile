@@ -22,7 +22,7 @@ gem "jwt", require: false
 gem "omniauth-github"
 
 group :test do
-  gem "capybara", "~> 3.33"
+  gem "capybara", "~> 3.39"
 end
 
 group :development do
