@@ -67,7 +67,6 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     create_account
 
     dropdown_click "Sign out"
-    click_on "Logout" if Capybara.current_driver == :rack_test
 
     assert_match "You have been logged out", page.text
     assert_equal "/", page.current_path
@@ -259,7 +258,6 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
   def logout
     dropdown_click "Sign out"
-    click_on "Logout" if Capybara.current_driver == :rack_test
   end
 
   def dropdown_click(text)
