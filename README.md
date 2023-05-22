@@ -46,7 +46,7 @@ and the custom name parameter:
 POST /create-account
 Content-Type: application/json
 
-{ "login": "user@example.com", "name": "User", "password": "secret123" }
+{ "email": "user@example.com", "name": "User", "password": "secret123" }
 ```
 ```http
 200 OK

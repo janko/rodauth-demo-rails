@@ -2,11 +2,11 @@ require "test_helper"
 
 class JsonTest < ActionDispatch::IntegrationTest
   test "registration and login" do
-    post "/login", params: { login: "user@example.com", password: "secret123" }, as: :json
+    post "/login", params: { email: "user@example.com", password: "secret123" }, as: :json
     assert_equal 401, response.status
     assert_equal "There was an error logging in", response.parsed_body.fetch("error")
 
-    post "/create-account", params: { login: "user@example.com", name: "User", password: "secret123" }, as: :json
+    post "/create-account", params: { email: "user@example.com", name: "User", password: "secret123" }, as: :json
     assert_equal 200, response.status
     assert_equal "An email has been sent to you with a link to verify your account", response.parsed_body.fetch("success")
 
@@ -14,7 +14,7 @@ class JsonTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal "Your account has been verified", response.parsed_body.fetch("success")
 
-    post "/login", params: { login: "user@example.com", password: "secret123" }, as: :json
+    post "/login", params: { email: "user@example.com", password: "secret123" }, as: :json
     assert_equal 200, response.status
     assert_equal "You have been logged in", response.parsed_body.fetch("success")
   end
@@ -22,7 +22,7 @@ class JsonTest < ActionDispatch::IntegrationTest
   test "change password" do
     Account.create!(email: "user@example.com", password: "secret123", status: "verified")
 
-    post "/login", params: { login: "user@example.com", password: "secret123" }, as: :json
+    post "/login", params: { email: "user@example.com", password: "secret123" }, as: :json
     assert_equal 200, response.status
 
     post "/change-password", params: { password: "secret123", "new-password": "new secret" }, as: :json,
@@ -30,7 +30,7 @@ class JsonTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal "Your password has been changed", response.parsed_body.fetch("success")
 
-    post "/login", params: { login: "user@example.com", password: "new secret" }, as: :json
+    post "/login", params: { email: "user@example.com", password: "new secret" }, as: :json
     assert_equal 200, response.status
   end
 

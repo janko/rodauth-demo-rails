@@ -17,6 +17,8 @@ class RodauthBase < Rodauth::Rails::Auth
     account_status_column :status
     # Store password hash in a column instead of a separate table.
     account_password_hash_column :password_hash
+    # Change login param from default "login".
+    login_param "email"
 
     # Set up password pepper for argon2.
     argon2_secret Rails.application.credentials.argon2_secret

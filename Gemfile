@@ -10,7 +10,7 @@ gem "turbo-rails", "~> 1.3"
 gem "stimulus-rails", "~> 1.2"
 gem "importmap-rails"
 
-gem "rodauth-rails", "~> 1.7"
+gem "rodauth-rails", "~> 1.9"
 gem "rodauth-i18n", "~> 0.7"
 gem "rodauth-omniauth", "~> 0.3"
 gem "rodauth-pwned", "~> 0.2"
