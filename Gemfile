@@ -20,6 +20,7 @@ gem "rqrcode", require: false
 gem "webauthn", require: false
 gem "jwt", require: false
 gem "omniauth-github"
+gem "composite_primary_keys", "~> 14.0" # avoid composite primary key warnings
 
 group :test do
   gem "capybara", "~> 3.39"
