@@ -190,7 +190,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     click_on "Setup Backup SMS Authentication"
     fill_in "Phone Number", with: "0123456789"
     click_on "Setup SMS Backup Number"
-    fill_in "SMS Code", with: db[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
+    fill_in "SMS Code", with: Account::SmsCode.first.code
     click_on "Confirm SMS Backup Number"
 
     assert_match "SMS authentication has been setup", page.text
@@ -200,7 +200,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
     click_on "Authenticate Using SMS Code"
     click_on "Send SMS Code"
-    fill_in "SMS Code", with: db[:account_sms_codes].first[:code] # use Sequel to work around Active Record's stale cache
+    fill_in "SMS Code", with: Account::SmsCode.first.code
     click_on "Authenticate via SMS Code"
 
     assert_match "You have been logged in", page.text

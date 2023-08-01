@@ -4,10 +4,4 @@ require "rails/test_help"
 
 class ActiveSupport::TestCase
   fixtures :all
-
-  private
-
-  def db
-    RodauthBase.allocate.db
-  end
 end
