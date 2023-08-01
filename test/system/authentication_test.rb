@@ -1,4 +1,5 @@
 require "test_helper"
+require "webauthn/fake_client"
 
 class AuthenticationTest < ActionDispatch::SystemTestCase
   driven_by :rack_test
@@ -227,6 +228,32 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     fill_in "Recovery Code", with: recovery_codes[0]
     click_on "Authenticate via Recovery Code"
 
+    assert_match "You have been logged in", page.text
+  end
+
+  test "passkeys" do
+    create_account(email: "janko@hey.com", password: "secret123")
+
+    webauthn_client = WebAuthn::FakeClient.new(current_url.chomp("/"))
+
+    dropdown_click "Manage MFA"
+    fill_in "Password", with: "secret123"
+    click_on "Confirm Password"
+
+    click_on "Setup WebAuthn Authentication"
+    fill_in "Nickname", with: "YubiKey"
+    challenge = find("#webauthn_setup_challenge", visible: false).value
+    fill_in "webauthn_setup", with: webauthn_client.create(challenge: challenge).to_json
+    click_on "Setup WebAuthn Authentication"
+    assert_match "WebAuthn authentication is now setup", page.text
+
+    logout
+    login(email: "janko@hey.com", password: "secret123")
+
+    click_on "Authenticate Using WebAuthn"
+    challenge = find("#webauthn_auth_challenge", visible: false).value
+    fill_in "webauthn_auth", with: webauthn_client.get(challenge: challenge).to_json
+    click_on "Authenticate Using WebAuthn"
     assert_match "You have been logged in", page.text
   end
 
