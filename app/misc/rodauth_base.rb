@@ -70,7 +70,10 @@ class RodauthBase < Rodauth::Rails::Auth
       return_response add_recovery_codes_view
     end
 
-    # Allow users to set name for their WebAuthn credentials.
+    # Require setting a nickname for WebAuthn credentials.
+    before_webauthn_setup do
+      throw_error_status(422, "nickname", "must be set") if param("nickname").empty?
+    end
     webauthn_key_insert_hash do |credential|
       super(credential).merge(nickname: param("nickname"))
     end
