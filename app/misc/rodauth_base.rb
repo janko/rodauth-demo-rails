@@ -79,7 +79,7 @@ class RodauthBase < Rodauth::Rails::Auth
     end
 
     # Redirect directly to MFA auth page if using MFA.
-    login_redirect { uses_two_factor_authentication? ? two_factor_auth_required_redirect : super() }
+    login_redirect { uses_two_factor_authentication? && !two_factor_authenticated? ? two_factor_auth_required_redirect : super() }
     # don't display error flash when requesting MFA after we've just logged in
     two_factor_need_authentication_error_flash { flash[:notice] == login_notice_flash ? nil : super() }
     # display generic message after multifactor authentication
