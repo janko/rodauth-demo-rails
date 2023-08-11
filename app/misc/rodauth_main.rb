@@ -1,3 +1,5 @@
+require "omniauth-github"
+
 class RodauthMain < RodauthBase
   configure do
     # List of authentication features that are loaded.
