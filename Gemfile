@@ -5,11 +5,13 @@ gem "puma", "~> 6.0"
 gem "pg", "~> 1.4"
 gem "bootsnap", "~> 1.16", require: false
 
+# Frontend
 gem "propshaft"
 gem "turbo-rails", "~> 1.3"
 gem "stimulus-rails", "~> 1.2"
 gem "importmap-rails"
 
+# Rodauth
 gem "rodauth-rails", "~> 1.9"
 gem "rodauth-i18n", "~> 0.7"
 gem "rodauth-omniauth", "~> 0.3"
