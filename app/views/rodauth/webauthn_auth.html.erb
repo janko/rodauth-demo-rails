@@ -10,6 +10,6 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.submit rodauth.webauthn_auth_button, class: "btn btn-primary", data: { action: "webauthn#auth" } %>
+    <%= form.submit rodauth.webauthn_auth_button, class: "btn btn-primary", data: { action: "webauthn#auth:prevent" } %>
   </div>
 <% end %>

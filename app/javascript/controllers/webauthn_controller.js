@@ -12,8 +12,6 @@ export default class extends Controller {
   }
 
   async setup(event) {
-    event.preventDefault()
-
     const result = await WebAuthnJSON.create({ publicKey: this.dataValue })
 
     this.resultTarget.value = JSON.stringify(result)
@@ -21,8 +19,6 @@ export default class extends Controller {
   }
 
   async auth(event) {
-    event.preventDefault()
-
     const result = await WebAuthnJSON.get({ publicKey: this.dataValue })
 
     this.resultTarget.value = JSON.stringify(result)

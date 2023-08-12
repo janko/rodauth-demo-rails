@@ -20,6 +20,6 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.submit rodauth.webauthn_setup_button, class: "btn btn-primary", data: { action: "webauthn#setup" } %>
+    <%= form.submit rodauth.webauthn_setup_button, class: "btn btn-primary", data: { action: "webauthn#setup:prevent" } %>
   </div>
 <% end %>
