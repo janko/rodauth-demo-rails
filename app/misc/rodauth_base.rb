@@ -5,7 +5,8 @@ class RodauthBase < Rodauth::Rails::Auth
     enable :create_account, :login, :email_auth, :logout,
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
-      :otp, :sms_codes, :recovery_codes, :webauthn, :webauthn_login,
+      :otp, :sms_codes, :recovery_codes,
+      :webauthn, :webauthn_login, :webauthn_autofill,
       :close_account, :argon2
 
     # Initialize Sequel and have it reuse Active Record's database connection.
@@ -77,6 +78,13 @@ class RodauthBase < Rodauth::Rails::Auth
     webauthn_key_insert_hash do |credential|
       super(credential).merge(nickname: param("nickname"))
     end
+
+    # Count login via passkey with biometrics/PIN verification as two factors.
+    webauthn_login_user_verification_additional_factor? true
+
+    # Save whether a logged in user had passkeys setup for passkey login button
+    after_login { rails_controller_instance.send(:set_webauthn_setup) }
+    after_webauthn_setup { rails_controller_instance.send(:set_webauthn_setup) }
 
     # Redirect directly to MFA auth page if using MFA.
     login_redirect { uses_two_factor_authentication? && !two_factor_authenticated? ? two_factor_auth_required_redirect : super() }

@@ -243,7 +243,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
     click_on "Setup WebAuthn Authentication"
     fill_in "Nickname", with: "YubiKey"
     challenge = find("#webauthn_setup_challenge", visible: false).value
-    fill_in "webauthn_setup", with: webauthn_client.create(challenge: challenge).to_json
+    find("#webauthn_setup", visible: false).set(webauthn_client.create(challenge: challenge).to_json)
     click_on "Setup WebAuthn Authentication"
     assert_match "WebAuthn authentication is now setup", page.text
 
@@ -252,8 +252,15 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
     click_on "Authenticate Using WebAuthn"
     challenge = find("#webauthn_auth_challenge", visible: false).value
-    fill_in "webauthn_auth", with: webauthn_client.get(challenge: challenge).to_json
+    find("#webauthn_auth", visible: false).set(webauthn_client.get(challenge: challenge).to_json)
     click_on "Authenticate Using WebAuthn"
+    assert_match "You have been logged in", page.text
+
+    logout
+    click_on "Sign in"
+    challenge = find("#webauthn_auth_challenge", visible: false).value
+    find("#webauthn_auth", visible: false).set(webauthn_client.get(challenge: challenge).to_json)
+    click_on "Login with a passkey"
     assert_match "You have been logged in", page.text
   end
 
