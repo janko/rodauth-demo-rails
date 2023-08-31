@@ -5,12 +5,12 @@ framework into Rails using the [rodauth-rails] gem.
 
 It implements authentication features such as the following:
 
-* creating an account with email verification and a grace period
-* login via password or email with remembering
+* creating an account with verification and a grace period
+* password login or passwordless login (email, passkey) with remembering
 * reset and change password
-* change login with email verification
+* change email with verification
 * password confirmation dialog before sensitive actions
-* multifactor authentication (TOTP, SMS codes, recovery codes, WebAuthn)
+* multifactor authentication (TOTP, SMS codes, recovery codes, passkeys)
 * social login with [rodauth-omniauth]
 * close account
 
