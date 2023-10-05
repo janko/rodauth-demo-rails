@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.1"
 gem "puma", "~> 6.0"
 gem "pg", "~> 1.4"
 gem "bootsnap", "~> 1.16", require: false
@@ -22,7 +22,6 @@ gem "rqrcode", require: false
 gem "webauthn", require: false
 gem "jwt", require: false
 gem "omniauth-github", require: false
-gem "composite_primary_keys", "~> 14.0" # avoid composite primary key warnings
 
 group :test do
   gem "capybara", "~> 3.39"
