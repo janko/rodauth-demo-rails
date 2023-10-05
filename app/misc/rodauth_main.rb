@@ -25,11 +25,13 @@ class RodauthMain < RodauthBase
       RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
 
-    # Remember all logged in users, and consider remembered users multifactor-authenticated.
     after_login do
-      super() # call overridden hook from RodauthBase
+      # Remember all logged in users, and consider remembered users multifactor-authenticated.
       remember_login unless uses_two_factor_authentication? && !two_factor_authenticated?
+      # Save whether a logged in user had passkeys setup for passkey login button
+      rails_controller_instance.send(:set_webauthn_setup)
     end
+
     after_two_factor_authentication { remember_login }
     after_load_memory { two_factor_update_session("totp") if uses_two_factor_authentication? }
 
@@ -70,6 +72,8 @@ class RodauthMain < RodauthBase
 
     omniauth_identity_insert_hash { super().merge(created_at: Time.now) }
     omniauth_identity_update_hash { { updated_at: Time.now } }
+
+    after_webauthn_setup { rails_controller_instance.send(:set_webauthn_setup) }
 
     # JSON API settings (using JWT)
     jwt_secret { ::Rails.application.secret_key_base }

@@ -82,10 +82,6 @@ class RodauthBase < Rodauth::Rails::Auth
     # Count login via passkey with biometrics/PIN verification as two factors.
     webauthn_login_user_verification_additional_factor? true
 
-    # Save whether a logged in user had passkeys setup for passkey login button
-    after_login { rails_controller_instance.send(:set_webauthn_setup) }
-    after_webauthn_setup { rails_controller_instance.send(:set_webauthn_setup) }
-
     # Redirect directly to MFA auth page if using MFA.
     login_redirect { uses_two_factor_authentication? && !two_factor_authenticated? ? two_factor_auth_required_redirect : super() }
     # don't display error flash when requesting MFA after we've just logged in
