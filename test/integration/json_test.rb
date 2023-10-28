@@ -34,6 +34,23 @@ class JsonTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
   end
 
+  test "logout" do
+    Account.create!(email: "user@example.com", password: "secret123", status: "verified")
+
+    post "/login", params: { email: "user@example.com", password: "secret123" }, as: :json
+    assert_equal 200, response.status
+
+    token = response.headers["Authorization"]
+
+    post "/logout", as: :json, env: { "HTTP_AUTHORIZATION" => token }
+    assert_equal 200, response.status
+
+    post "/change-password", params: { password: "secret123", "new-password": "new secret" }, as: :json,
+      env: { "HTTP_AUTHORIZATION" => token }
+    assert_equal 401, response.status
+    assert_equal "This session has been logged out", response.parsed_body.fetch("error")
+  end
+
   private
 
   def email_link
