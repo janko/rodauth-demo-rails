@@ -7,7 +7,7 @@ gem "bootsnap", "~> 1.16", require: false
 
 # Frontend
 gem "propshaft"
-gem "turbo-rails", "~> 1.3"
+gem "turbo-rails", "~> 1.5"
 gem "stimulus-rails", "~> 1.2"
 gem "importmap-rails"
 
