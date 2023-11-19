@@ -12,6 +12,9 @@ class RodauthBase < Rodauth::Rails::Auth
     # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
 
+    # Avoid DB queries on accounts table schema at boot time.
+    convert_token_id_to_integer? true
+
     title_instance_variable :@page_title
 
     # Store account status in an integer column without foreign key constraint.
