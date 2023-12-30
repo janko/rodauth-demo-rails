@@ -1,9 +1,9 @@
 one:
   email: freddie@queen.com
-  password_hash: <%= RodauthBase.allocate.send(:password_hash, "password") %>
+  password_hash: <%= RodauthMain.allocate.password_hash("password") %>
   status: verified
 
 two:
   email: brian@queen.com
-  password_hash: <%= RodauthBase.allocate.send(:password_hash, "password") %>
+  password_hash: <%= RodauthMain.allocate.password_hash("password") %>
   status: verified
