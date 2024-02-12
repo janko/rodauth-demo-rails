@@ -13,7 +13,7 @@ class RodauthBase < Rodauth::Rails::Auth
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
 
     # Avoid DB queries on accounts table schema at boot time.
-    convert_token_id_to_integer? true
+    convert_token_id_to_integer? { Account.columns_hash["id"].type == :integer }
 
     title_instance_variable :@page_title
 
