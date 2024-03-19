@@ -183,7 +183,7 @@ GEM
     openssl (3.0.2)
     openssl-signature_algorithm (1.2.1)
       openssl (> 2.0, < 3.1)
-    pg (1.4.6)
+    pg (1.5.6)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
