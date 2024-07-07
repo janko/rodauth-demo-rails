@@ -47,6 +47,7 @@ class RodauthMain < RodauthBase
     # Validate custom fields in the create account form.
     before_create_account do
       throw_error_status(422, "name", "must be present") if param("name").empty?
+      super()
     end
 
     # Perform additional actions after the account is created.
