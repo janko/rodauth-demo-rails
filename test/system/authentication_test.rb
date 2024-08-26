@@ -2,6 +2,7 @@ require "test_helper"
 require "webauthn/fake_client"
 
 class AuthenticationTest < ActionDispatch::SystemTestCase
+  include ActiveJob::TestHelper
   driven_by :rack_test
 
   def setup
@@ -300,6 +301,7 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
   end
 
   def email_link
+    perform_enqueued_jobs
     email = RodauthMailer.deliveries.last
     email.body.to_s[%r{https?://\S+}]
   end

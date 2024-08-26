@@ -1,6 +1,7 @@
 require "test_helper"
 
 class AdminTest < ActionDispatch::SystemTestCase
+  include ActiveJob::TestHelper
   driven_by :rack_test
 
   test "login" do
@@ -77,6 +78,7 @@ class AdminTest < ActionDispatch::SystemTestCase
   end
 
   def email_link
+    perform_enqueued_jobs
     RodauthMailer.deliveries.last.body.to_s[%r{https?://\S+}]
   end
 end
