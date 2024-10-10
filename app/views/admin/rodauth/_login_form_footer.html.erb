@@ -1,0 +1,15 @@
+<% unless rodauth(:admin).login_form_footer_links.empty? %>
+  <%== rodauth(:admin).login_form_footer_links_heading %>
+
+  <ul>
+    <% if rodauth(:admin).omniauth_providers.include?(:github) %>
+      <li>
+        <%= button_to "Login via GitHub", rodauth(:admin).omniauth_request_path(:github),
+          method: :post, data: { turbo: false }, class: "btn btn-link p-0" %>
+      </li>
+    <% end %>
+    <% rodauth(:admin).login_form_footer_links.sort.each do |_, link, text| %>
+      <li><%= link_to text, link %></li>
+    <% end %>
+  </ul>
+<% end %>

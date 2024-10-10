@@ -11,6 +11,9 @@ class RodauthAdmin < RodauthBase
     # disallow creating accounts via the UI
     create_account_route nil
 
+    # Don't allow OmniAuth login to auto-create admin accounts.
+    omniauth_create_account? false
+
     # Amount of invalid logins allowed before the account is locked.
     max_invalid_logins 3
 

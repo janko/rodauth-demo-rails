@@ -5,7 +5,7 @@ class RodauthMain < RodauthBase
     # List of authentication features that are loaded.
     enable :verify_account, :verify_account_grace_period, :active_sessions,
       :remember, :confirm_password, :password_grace_period,
-      :i18n, :jwt, :omniauth
+      :i18n, :jwt
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
@@ -63,16 +63,9 @@ class RodauthMain < RodauthBase
     # Redirect to wherever login redirects to after account verification.
     verify_account_redirect { login_redirect }
 
-    if github = Rails.application.credentials.github
-      omniauth_provider :github, github[:client_id], github[:client_secret]
-    end
-
     after_omniauth_create_account do
       Profile.create!(account_id: account_id, name: omniauth_name)
     end
-
-    omniauth_identity_insert_hash { super().merge(created_at: Time.now) }
-    omniauth_identity_update_hash { { updated_at: Time.now } }
 
     after_webauthn_setup { rails_controller_instance.send(:set_webauthn_setup) }
 

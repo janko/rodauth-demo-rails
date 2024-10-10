@@ -7,7 +7,7 @@ class RodauthBase < Rodauth::Rails::Auth
       :change_login, :verify_login_change,
       :otp, :sms_codes, :recovery_codes,
       :webauthn, :webauthn_login, :webauthn_autofill,
-      :close_account, :argon2
+      :close_account, :argon2, :omniauth
 
     # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
@@ -84,6 +84,13 @@ class RodauthBase < Rodauth::Rails::Auth
 
     # Count login via passkey with biometrics/PIN verification as two factors.
     webauthn_login_user_verification_additional_factor? true
+
+    if github = Rails.application.credentials.github
+      omniauth_provider :github, github[:client_id], github[:client_secret]
+    end
+
+    omniauth_identity_insert_hash { super().merge(created_at: Time.now) }
+    omniauth_identity_update_hash { { updated_at: Time.now } }
 
     # Redirect directly to MFA auth page if using MFA.
     login_redirect { uses_two_factor_authentication? && !two_factor_authenticated? ? two_factor_auth_required_redirect : super() }
