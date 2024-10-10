@@ -14,7 +14,7 @@ gem "importmap-rails"
 # Rodauth
 gem "rodauth-rails", "~> 1.11"
 gem "rodauth-i18n", "~> 0.7"
-gem "rodauth-omniauth", "~> 0.3"
+gem "rodauth-omniauth", "~> 0.5"
 gem "rodauth-pwned", "~> 0.2"
 gem "argon2", require: false
 gem "rotp", require: false

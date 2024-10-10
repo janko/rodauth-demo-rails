@@ -269,7 +269,7 @@ GEM
       rodauth (~> 2.19)
     rodauth-model (0.2.1)
       rodauth (~> 2.0)
-    rodauth-omniauth (0.3.4)
+    rodauth-omniauth (0.5.0)
       omniauth (~> 2.0)
       rodauth (~> 2.13)
     rodauth-pwned (0.2.1)
@@ -366,7 +366,7 @@ DEPENDENCIES
   puma (~> 6.0)
   rails (~> 7.2.1)
   rodauth-i18n (~> 0.7)
-  rodauth-omniauth (~> 0.3)
+  rodauth-omniauth (~> 0.5)
   rodauth-pwned (~> 0.2)
   rodauth-rails (~> 1.11)
   rotp
