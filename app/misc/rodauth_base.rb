@@ -7,7 +7,7 @@ class RodauthBase < Rodauth::Rails::Auth
       :change_login, :verify_login_change,
       :otp, :otp_unlock, :sms_codes, :recovery_codes,
       :webauthn, :webauthn_login, :webauthn_autofill,
-      :close_account, :argon2, :omniauth
+      :close_account, :argon2, :omniauth, :audit_logging
 
     # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
@@ -91,6 +91,10 @@ class RodauthBase < Rodauth::Rails::Auth
 
     omniauth_identity_insert_hash { super().merge(created_at: Time.now) }
     omniauth_identity_update_hash { { updated_at: Time.now } }
+
+    audit_log_metadata_for :login do
+      { "provider" => omniauth_provider } if authenticated_by.include?("omniauth")
+    end
 
     # Redirect directly to MFA auth page if using MFA.
     login_redirect { uses_two_factor_authentication? && !two_factor_authenticated? ? two_factor_auth_required_redirect : super() }
