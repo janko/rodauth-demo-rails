@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_04_01_212646) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_12_090149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -59,6 +59,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_04_01_212646) do
     t.string "key", null: false
     t.integer "num_failures", default: 0, null: false
     t.datetime "last_use", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+  end
+
+  create_table "account_otp_unlocks", force: :cascade do |t|
+    t.integer "num_successes", default: 1, null: false
+    t.datetime "next_auth_attempt_after", default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "account_password_reset_keys", force: :cascade do |t|
@@ -134,6 +139,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_04_01_212646) do
   add_foreign_key "account_login_change_keys", "accounts", column: "id"
   add_foreign_key "account_login_failures", "accounts", column: "id"
   add_foreign_key "account_otp_keys", "accounts", column: "id"
+  add_foreign_key "account_otp_unlocks", "accounts", column: "id"
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_recovery_codes", "accounts", column: "id"
   add_foreign_key "account_remember_keys", "accounts", column: "id"
