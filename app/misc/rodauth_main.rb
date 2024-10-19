@@ -28,8 +28,6 @@ class RodauthMain < RodauthBase
     after_login do
       # Remember all logged in users, and consider remembered users multifactor-authenticated.
       remember_login unless uses_two_factor_authentication? && !two_factor_authenticated?
-      # Save whether a logged in user had passkeys setup for passkey login button
-      rails_controller_instance.send(:set_webauthn_setup)
     end
 
     after_two_factor_authentication { remember_login }
@@ -66,8 +64,6 @@ class RodauthMain < RodauthBase
     after_omniauth_create_account do
       Profile.create!(account_id: account_id, name: omniauth_name)
     end
-
-    after_webauthn_setup { rails_controller_instance.send(:set_webauthn_setup) }
 
     # JSON API settings (using JWT)
     jwt_secret { ::Rails.application.secret_key_base }

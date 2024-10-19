@@ -259,9 +259,10 @@ class AuthenticationTest < ActionDispatch::SystemTestCase
 
     logout
     click_on "Sign in"
+    login(email: "janko@hey.com")
     challenge = find("#webauthn_auth_challenge", visible: false).value
     find("#webauthn_auth", visible: false).set(webauthn_client.get(challenge: challenge).to_json)
-    click_on "Login with a passkey"
+    click_on "Authenticate Using WebAuthn"
     assert_match "You have been logged in", page.text
   end
 

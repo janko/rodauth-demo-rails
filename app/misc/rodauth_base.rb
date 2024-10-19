@@ -6,7 +6,7 @@ class RodauthBase < Rodauth::Rails::Auth
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
       :otp, :otp_unlock, :sms_codes, :recovery_codes,
-      :webauthn, :webauthn_login, :webauthn_autofill,
+      :webauthn, :webauthn_login,
       :close_account, :argon2, :omniauth, :audit_logging
 
     # Initialize Sequel and have it reuse Active Record's database connection.
