@@ -25,11 +25,8 @@ class RodauthMain < RodauthBase
       RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
 
-    after_login do
-      # Remember all logged in users, and consider remembered users multifactor-authenticated.
-      remember_login unless uses_two_factor_authentication? && !two_factor_authenticated?
-    end
-
+    # Remember all logged in users, and consider remembered users multifactor-authenticated.
+    after_login { remember_login unless uses_two_factor_authentication? && !two_factor_authenticated? }
     after_two_factor_authentication { remember_login }
     after_load_memory { two_factor_update_session("totp") if uses_two_factor_authentication? }
 
