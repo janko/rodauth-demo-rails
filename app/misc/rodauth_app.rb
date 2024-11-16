@@ -3,8 +3,8 @@ class RodauthApp < Rodauth::Rails::App
   configure RodauthAdmin, :admin
 
   route do |r|
-    rodauth.load_memory # autologin remembered users
     rodauth.check_active_session
+    rodauth(:admin).check_active_session
 
     r.rodauth # route rodauth requests
     r.rodauth(:admin)

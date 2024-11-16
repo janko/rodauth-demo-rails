@@ -87,11 +87,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
     t.string "code", null: false
   end
 
-  create_table "account_remember_keys", force: :cascade do |t|
-    t.string "key", null: false
-    t.datetime "deadline", precision: nil, null: false
-  end
-
   create_table "account_sms_codes", force: :cascade do |t|
     t.string "phone_number", null: false
     t.integer "num_failures"
@@ -153,7 +148,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
   add_foreign_key "account_otp_unlocks", "accounts", column: "id"
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_recovery_codes", "accounts", column: "id"
-  add_foreign_key "account_remember_keys", "accounts", column: "id"
   add_foreign_key "account_sms_codes", "accounts", column: "id"
   add_foreign_key "account_verification_keys", "accounts", column: "id"
   add_foreign_key "account_webauthn_keys", "accounts"

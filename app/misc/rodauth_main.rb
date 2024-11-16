@@ -3,9 +3,8 @@ require "omniauth-github"
 class RodauthMain < RodauthBase
   configure do
     # List of authentication features that are loaded.
-    enable :verify_account, :verify_account_grace_period, :active_sessions,
-      :remember, :confirm_password, :password_grace_period,
-      :i18n, :jwt
+    enable :verify_account, :verify_account_grace_period,
+      :confirm_password, :password_grace_period, :i18n, :jwt
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
@@ -16,22 +15,13 @@ class RodauthMain < RodauthBase
     # Amount of time between asking for password for sensitive actions.
     password_grace_period 1.hour.to_i
 
-    # Expire inactive sessions after 14 days and set infinite lifespan.
+    # Expire inactive sessions after 14 days.
     session_inactivity_deadline 14.days.to_i
-    session_lifetime_deadline nil
 
     # Use our own mailer for sending emails.
     create_verify_account_email do
       RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
-
-    # Remember all logged in users, and consider remembered users multifactor-authenticated.
-    after_login { remember_login unless uses_two_factor_authentication? && !two_factor_authenticated? }
-    after_two_factor_authentication { remember_login }
-    after_load_memory { two_factor_update_session("totp") if uses_two_factor_authentication? }
-
-    # Extend user's remember period when remembered via a cookie
-    extend_remember_deadline? true
 
     # Redirect to password confirmation dialog before these routes
     before_change_password_route    { require_password_authentication }

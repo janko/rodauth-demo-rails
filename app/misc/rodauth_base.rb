@@ -2,7 +2,7 @@ require "sequel/core"
 
 class RodauthBase < Rodauth::Rails::Auth
   configure do
-    enable :create_account, :login, :email_auth, :logout,
+    enable :create_account, :login, :email_auth, :logout, :active_sessions,
       :reset_password, :change_password, :change_password_notify,
       :change_login, :verify_login_change,
       :otp, :otp_unlock, :sms_codes, :recovery_codes,

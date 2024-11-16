@@ -17,6 +17,9 @@ class RodauthAdmin < RodauthBase
     # Amount of invalid logins allowed before the account is locked.
     max_invalid_logins 3
 
+    # Expire sessions 12 hours after login.
+    session_lifetime_deadline 12.hours.to_i
+
     # Delete the account record when the user has closed their account.
     delete_account_on_close? true
 

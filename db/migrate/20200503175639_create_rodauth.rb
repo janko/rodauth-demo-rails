@@ -32,13 +32,6 @@ class CreateRodauth < ActiveRecord::Migration[6.0]
       t.datetime :deadline, null: false
     end
 
-    # Used by the remember me feature
-    create_table :account_remember_keys do |t|
-      t.foreign_key :accounts, column: :id
-      t.string :key, null: false
-      t.datetime :deadline, null: false
-    end
-
     # Used by the lockout feature
     create_table :account_login_failures do |t|
       t.foreign_key :accounts, column: :id

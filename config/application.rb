@@ -24,6 +24,9 @@ module RodauthDemo
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
+    # long-lived session cookie
+    config.session_store :cookie_store, key: "_rodauth_demo_session", expire_after: 14.days
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
