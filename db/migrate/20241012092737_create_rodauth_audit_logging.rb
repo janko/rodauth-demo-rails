@@ -5,7 +5,7 @@ class CreateRodauthAuditLogging < ActiveRecord::Migration[7.2]
       t.references :account, foreign_key: true, null: false
       t.datetime :at, null: false, default: -> { "CURRENT_TIMESTAMP" }
       t.text :message, null: false
-      t.jsonb :metadata
+      t.json :metadata
       t.index [:account_id, :at]
       t.index :at
     end

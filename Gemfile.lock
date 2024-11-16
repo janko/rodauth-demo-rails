@@ -200,7 +200,6 @@ GEM
     openssl (3.2.0)
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
-    pg (1.5.6)
     propshaft (0.9.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -300,6 +299,16 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    sqlite3 (2.2.0-aarch64-linux-gnu)
+    sqlite3 (2.2.0-aarch64-linux-musl)
+    sqlite3 (2.2.0-arm-linux-gnu)
+    sqlite3 (2.2.0-arm-linux-musl)
+    sqlite3 (2.2.0-arm64-darwin)
+    sqlite3 (2.2.0-x86-linux-gnu)
+    sqlite3 (2.2.0-x86-linux-musl)
+    sqlite3 (2.2.0-x86_64-darwin)
+    sqlite3 (2.2.0-x86_64-linux-gnu)
+    sqlite3 (2.2.0-x86_64-linux-musl)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.1)
@@ -361,7 +370,6 @@ DEPENDENCIES
   localhost
   matrix
   omniauth-github
-  pg (~> 1.4)
   propshaft
   puma (~> 6.0)
   rails (~> 7.2.1)
@@ -371,6 +379,7 @@ DEPENDENCIES
   rodauth-rails (~> 1.15)
   rotp
   rqrcode
+  sqlite3 (~> 2.0)
   stimulus-rails (~> 1.2)
   turbo-rails (~> 1.5)
   webauthn

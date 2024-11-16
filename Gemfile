@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 7.2.1"
 gem "puma", "~> 6.0"
-gem "pg", "~> 1.4"
+gem "sqlite3", "~> 2.0"
 gem "bootsnap", "~> 1.16", require: false
 
 # Frontend

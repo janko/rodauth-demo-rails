@@ -1,10 +1,8 @@
 class CreateRodauth < ActiveRecord::Migration[6.0]
   def change
-    enable_extension "citext"
-
     create_table :accounts do |t|
       t.integer :status, null: false, default: 1
-      t.citext :email, null: false, index: { unique: true, where: "status IN (1, 2)" }
+      t.string :email, null: false, index: { unique: true, where: "status IN (1, 2)" }
       t.string :password_hash
     end
 

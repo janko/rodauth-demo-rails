@@ -11,23 +11,19 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "citext"
-  enable_extension "plpgsql"
-
   create_table "account_active_session_keys", primary_key: ["account_id", "session_id"], force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.string "session_id", null: false
+    t.integer "account_id"
+    t.string "session_id"
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["account_id"], name: "index_account_active_session_keys_on_account_id"
   end
 
   create_table "account_authentication_audit_logs", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.datetime "at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.text "message", null: false
-    t.jsonb "metadata"
+    t.json "metadata"
     t.index ["account_id", "at"], name: "index_account_authentication_audit_logs_on_account_id_and_at"
     t.index ["account_id"], name: "index_account_authentication_audit_logs_on_account_id"
     t.index ["at"], name: "index_account_authentication_audit_logs_on_at"
@@ -40,7 +36,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
   end
 
   create_table "account_identities", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
     t.datetime "created_at", null: false
@@ -83,8 +79,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
   end
 
   create_table "account_recovery_codes", primary_key: ["id", "code"], force: :cascade do |t|
-    t.integer "id", null: false
-    t.string "code", null: false
+    t.integer "id"
+    t.string "code"
   end
 
   create_table "account_sms_codes", force: :cascade do |t|
@@ -101,8 +97,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
   end
 
   create_table "account_webauthn_keys", primary_key: ["account_id", "webauthn_id"], force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.string "webauthn_id", null: false
+    t.integer "account_id"
+    t.string "webauthn_id"
     t.string "public_key", null: false
     t.integer "sign_count", null: false
     t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -116,14 +112,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer "status", default: 1, null: false
-    t.citext "email", null: false
+    t.string "email", null: false
     t.string "password_hash"
     t.string "type", default: "main", null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
+    t.index ["email"], name: "index_accounts_on_email", unique: true, where: "status IN (1, 2)"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.bigint "account_id"
+    t.integer "account_id"
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
@@ -132,7 +128,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_092737) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "account_id"
+    t.integer "account_id"
     t.string "name", null: false
     t.index ["account_id"], name: "index_profiles_on_account_id"
   end
