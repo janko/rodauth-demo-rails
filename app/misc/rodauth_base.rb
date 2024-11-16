@@ -3,8 +3,7 @@ require "sequel/core"
 class RodauthBase < Rodauth::Rails::Auth
   configure do
     enable :create_account, :login, :email_auth, :logout, :active_sessions,
-      :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change,
+      :reset_password, :change_password, :change_login, :verify_login_change,
       :otp, :otp_unlock, :sms_codes, :recovery_codes,
       :webauthn, :webauthn_login,
       :close_account, :argon2, :omniauth, :audit_logging
@@ -45,9 +44,6 @@ class RodauthBase < Rodauth::Rails::Auth
     end
     create_verify_login_change_email do |_login|
       RodauthMailer.verify_login_change(self.class.configuration_name, account_id, verify_login_change_key_value)
-    end
-    create_password_changed_email do
-      RodauthMailer.password_changed(self.class.configuration_name, account_id)
     end
     create_email_auth_email do
       RodauthMailer.email_auth(self.class.configuration_name, account_id, email_auth_key_value)
