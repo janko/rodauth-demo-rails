@@ -5,7 +5,7 @@ class RodauthBase < Rodauth::Rails::Auth
     enable :create_account, :login, :email_auth, :logout, :active_sessions,
       :reset_password, :change_password, :change_login, :verify_login_change,
       :otp, :otp_unlock, :sms_codes, :recovery_codes,
-      :webauthn, :webauthn_login,
+      :webauthn, :webauthn_login, :webauthn_autofill,
       :close_account, :argon2, :omniauth, :audit_logging
 
     # Initialize Sequel and have it reuse Active Record's database connection.
@@ -36,6 +36,8 @@ class RodauthBase < Rodauth::Rails::Auth
     # Redirect back to originally requested location after authentication.
     login_return_to_requested_location? true
     two_factor_auth_return_to_requested_location? true
+
+    after_login { rails_cookies.permanent[:using_passkeys] = webauthn_setup? }
 
     before_create_account { account[:type] = account_type }
 
@@ -74,12 +76,16 @@ class RodauthBase < Rodauth::Rails::Auth
     before_webauthn_setup do
       throw_error_status(422, "nickname", "must be set") if param("nickname").empty?
     end
+    after_webauthn_setup { rails_cookies.permanent[:using_passkeys] = true }
     webauthn_key_insert_hash do |credential|
       super(credential).merge(nickname: param("nickname"))
     end
 
     # Count login via passkey with biometrics/PIN verification as two factors.
     webauthn_login_user_verification_additional_factor? true
+
+    # Use the usernameless login via passkey button instead of autofill.
+    webauthn_autofill? false
 
     if github = Rails.application.credentials.github
       omniauth_provider :github, github[:client_id], github[:client_secret]
