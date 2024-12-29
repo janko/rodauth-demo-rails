@@ -12,11 +12,13 @@ gem "stimulus-rails", "~> 1.2"
 gem "importmap-rails"
 
 # Rodauth
-gem "rodauth-rails", "~> 1.15"
+gem "rodauth-rails", "~> 2.0"
 gem "rodauth-i18n", "~> 0.7"
 gem "rodauth-omniauth", "~> 0.5"
 gem "rodauth-pwned", "~> 0.2"
+gem "sequel-activerecord_connection", require: false
 gem "argon2", require: false
+gem "tilt", require: false
 gem "rotp", require: false
 gem "rqrcode", require: false
 gem "webauthn", require: false
