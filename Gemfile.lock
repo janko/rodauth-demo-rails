@@ -270,8 +270,8 @@ GEM
     rodauth-pwned (0.2.1)
       pwned (~> 2.1)
       rodauth (~> 2.0)
-    rodauth-rails (2.0.2)
-      railties (>= 5.0, < 8.1)
+    rodauth-rails (2.1.0)
+      railties (>= 5.1, < 8.1)
       roda (~> 3.76)
       rodauth (~> 2.36)
       rodauth-model (~> 0.2)
@@ -366,7 +366,7 @@ DEPENDENCIES
   rodauth-i18n (~> 0.7)
   rodauth-omniauth (~> 0.5)
   rodauth-pwned (~> 0.2)
-  rodauth-rails (~> 2.0)
+  rodauth-rails (~> 2.1)
   rotp
   rqrcode
   sequel-activerecord_connection
